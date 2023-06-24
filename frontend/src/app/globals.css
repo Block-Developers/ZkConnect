@@ -2,7 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+.hero1 {
+  background-image: url("../Assets/Frame.png");
+  background-size: cover;
+  background-position: center;
+  width: 100vw;
+  height: 100vh;
+}
 
 body{
     background: #000;
 }
+
