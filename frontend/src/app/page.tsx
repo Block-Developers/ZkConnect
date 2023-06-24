@@ -1,7 +1,7 @@
 import Jobslist from "./components/Jobslist";
 import NavBar from "./components/Navbar";
 import Head from "next/head";
-
+import Link from "next/link";
 export default function Home() {
   return (
     <main>
@@ -10,7 +10,7 @@ export default function Home() {
       </Head>
       <NavBar />
 
-      <div className="hero1 mt-[100px]">
+      <div className=" mt-[100px]">
         <div className="flex flex-col text-white justify-center items-center h-screen pb-[50px]">
           <div className="w-[600px] text-[55px] font-agrandir font-extrabold leading-80">
             Smarter tech talent{" "}
@@ -32,7 +32,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="hero1 px-40">
+      <div className=" px-40">
         <div
           id="features"
           className="font-extrabold text-center text-white pb-5 text-2xl pt-20"
@@ -43,6 +43,24 @@ export default function Home() {
           <Jobslist />
           <Jobslist />
           <Jobslist />
+          <Link href="jobs">
+            <p className="text-center text-lg cursor-pointer text-blue-600 ">
+              Show More ➡
+            </p>
+          </Link>
+
+          <div
+            id="features"
+            className="font-extrabold text-center text-white pb-5 text-2xl pt-20"
+          >
+            How it Works?
+          </div>
+          <div className="flex justify-center  text-white text-center font-extrabold text-lg ">
+            <p className="border border-white bg-[#9000A7] p-2 rounded-l-md">
+              As User
+            </p>
+            <p className="border border-white p-2 rounded-r-md">As Company</p>
+          </div>
         </div>
       </div>
     </main>
