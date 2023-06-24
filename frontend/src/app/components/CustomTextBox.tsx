@@ -2,8 +2,8 @@ import React from "react";
 
 const CustomTextBox = ({ name, placeholder }) => {
   return (
-    <div className="flex flex-col w-full mt-[50px]">
-      <div className="text-[24px] leading-6 font-agrandir pb-3 cursor-pointer">
+    <div className="flex flex-col w-full mt-5 md:mt-[50px]">
+      <div className="md:text-[24px] leading-6 font-agrandir pb-3 cursor-pointer">
         {name}
       </div>
       <div>

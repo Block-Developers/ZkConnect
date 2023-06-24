@@ -24,10 +24,10 @@ function Signup() {
 
     // Create a data object with the form fields
     const data = {
-      username: "fdsfa",
-      password: "iufugsfsiofdhf",
-      email: "nagi1@gmail.com",
-      role: "role",
+      username: "nagipra",
+      password: "password1as",
+      email: "nagi2ae@gmail.com",
+      role: "roleae",
     };
 
     try {
@@ -35,11 +35,10 @@ function Signup() {
       const response = await axios.post(
         "https://zk-connect-api.vercel.app/signup/",
         {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
+          username: username,
+          password: password,
+          email: email,
+          role: "Student",
         }
       );
 
@@ -168,7 +167,7 @@ function Signup() {
                   type="submit"
                   className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                  Sign in
+                  Sign up
                 </button>
               </div>
             </form>
@@ -178,7 +177,6 @@ function Signup() {
                 Login
               </Link>
             </h2>{" "}
-            {/* Rest of the code */}
           </div>
         </div>
       </div>
