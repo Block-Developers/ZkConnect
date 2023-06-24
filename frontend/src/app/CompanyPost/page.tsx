@@ -21,10 +21,10 @@ export default function CompanyPost() {
         <MainNav />
       </div>
       <div className="mt-[100px] ">
-        <center className="mt-[80px] text-[38px] pt-[50px] font-extrabold leading-6 font-agrandir py-12 flex justify-center items-center text-white w-full">
+        <center className="mt-[80px] md:text-[38px] text-[25px] pt-[50px] font-extrabold leading-6 font-agrandir py-12 flex justify-center items-center text-white w-full">
           Create a Job Hiring Post
         </center>
-        <div className="flex flex-col m-[150px] mt-[20px] border p-[100px] border-white rounded-2xl text-white text-[24px] leading-6 font-agrandir">
+        <div className="flex flex-col md:m-[150px] m-[2 0px] mt-[20px] border md:p-[100px] p-[30px] border-white rounded-2xl text-white text-[24px] leading-6 font-agrandir">
           <CustomFormComp name="Role Name" type="text" />
           <CustomFormComp name="Mode of Work" type="text" />
           <CustomFormComp name="Duration" type="text" />
@@ -37,7 +37,7 @@ export default function CompanyPost() {
             </div>
             <div className="flex flex-wrap pt-2 gap-3">
               <button
-                className={`rounded-[10px] border border-white px-5 py-3 text-[24px] leading-6 font-agrandir ${
+                className={`rounded-[10px] border border-white md:px-5  md:py-3 px-2 py-1 md:text-[24px] md:leading-6 font-agrandir ${
                   selectedSkills.includes(1) ? "bg-blue-500" : "bg-transparent"
                 }`}
                 onClick={() => handleSkillSelect(1)}
@@ -45,7 +45,7 @@ export default function CompanyPost() {
                 Full Stack
               </button>
               <button
-                className={`rounded-[10px] border border-white px-5 py-3 text-[24px] leading-6 font-agrandir ${
+                className={`rounded-[10px] border border-white md:px-5 md:py-3 px-2 py-1 md:text-[24px] md:leading-6 font-agrandir ${
                   selectedSkills.includes(2) ? "bg-blue-500" : "bg-transparent"
                 }`}
                 onClick={() => handleSkillSelect(2)}
@@ -53,7 +53,7 @@ export default function CompanyPost() {
                 Frontend
               </button>
               <button
-                className={`rounded-[10px] border border-white px-5 py-3 text-[24px] leading-6 font-agrandir ${
+                className={`rounded-[10px] border border-white md:px-5 md:py-3 px-2 py-1 md:text-[24px] md:leading-6 font-agrandir ${
                   selectedSkills.includes(3) ? "bg-blue-500" : "bg-transparent"
                 }`}
                 onClick={() => handleSkillSelect(3)}
@@ -61,7 +61,7 @@ export default function CompanyPost() {
                 Backend
               </button>
               <button
-                className={`rounded-[10px] border border-white px-5 py-3 text-[24px] leading-6 font-agrandir ${
+                className={`rounded-[10px] border border-white md:px-5 md:py-3 px-2 py-1 md:text-[24px] md:leading-6 font-agrandir ${
                   selectedSkills.includes(4) ? "bg-blue-500" : "bg-transparent"
                 }`}
                 onClick={() => handleSkillSelect(4)}
@@ -69,7 +69,7 @@ export default function CompanyPost() {
                 Designer
               </button>
               <button
-                className={`rounded-[10px] border border-white px-5 py-3 text-[24px] leading-6 font-agrandir ${
+                className={`rounded-[10px] border border-white md:px-5 md:py-3 px-2 py-1 md:text-[24px] md:leading-6 font-agrandir text-left ${
                   selectedSkills.includes(5) ? "bg-blue-500" : "bg-transparent"
                 }`}
                 onClick={() => handleSkillSelect(5)}
@@ -77,7 +77,7 @@ export default function CompanyPost() {
                 Smart contract developer
               </button>
               <button
-                className={`rounded-[10px] border border-white px-5 py-3 text-[24px] leading-6 font-agrandir ${
+                className={`rounded-[10px] border border-white md:px-5 md:py-3 px-2 py-1 md:text-[24px] md:leading-6 font-agrandir ${
                   selectedSkills.includes(6) ? "bg-blue-500" : "bg-transparent"
                 }`}
                 onClick={() => handleSkillSelect(6)}
@@ -85,7 +85,7 @@ export default function CompanyPost() {
                 Social Media
               </button>
               <button
-                className={`rounded-[10px] border border-white px-5 py-3 text-[24px] leading-6 font-agrandir ${
+                className={`rounded-[10px] border border-white md:px-5 md:py-3 px-2 py-1 md:text-[24px] md:leading-6 font-agrandir ${
                   selectedSkills.includes(7) ? "bg-blue-500" : "bg-transparent"
                 }`}
                 onClick={() => handleSkillSelect(7)}
