@@ -60,7 +60,7 @@ function Signup() {
   return (
     <div>
       <CustomNav />
-      <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="min-h-full flex flex-col justify-center py-10 md:py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <Image
             className="mx-auto mt-2 h-32 w-auto"
@@ -70,7 +70,7 @@ function Signup() {
         </div>
 
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="bg-white py-6 px-4 shadow sm:rounded-lg sm:px-10">
+          <div className="bg-white py-6 px-4 mx-4 rounded-md shadow sm:rounded-lg sm:px-10">
             <form className="space-y-6" onSubmit={handleSubmit}>
               <h2 className="text-center text-xl font-extrabold text-gray-700">
                 Sign up to create your account
@@ -172,7 +172,12 @@ function Signup() {
                 </button>
               </div>
             </form>
-
+            <h2 className="mt-6 text-center text-md  text-gray-700">
+              Already have an account on ZkConnect?{" "}
+              <Link className="text-indigo-600" href="Login">
+                Login
+              </Link>
+            </h2>{" "}
             {/* Rest of the code */}
           </div>
         </div>

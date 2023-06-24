@@ -7,14 +7,14 @@ function Jobslist() {
   return (
     <div>
       <div className="block rounded-xl text-white bg-[#202020] dark:bg-dark-700 p-6 cursor-pointer border border-transparent hover:border-light-400 hover:dark:border-dark-100 w-full">
-        <div className="flex gap-6 justify-between items-center flex-col md:flex-row w-full">
+        <div className="flex gap-6 justify-between items-center md:flex-col flex-row w-full">
           <div className="flex gap-6 items-center w-full">
             <div className="w-full">
               <div className="flex flex-col gap-2">
-                <div className="text-xl text-white font-bold line-clamp-1">
+                <div className="md:text-xl text-white font-bold line-clamp-1">
                   FrontEnd Developer
                 </div>
-                <div className="text-light-300 text-lg font-medium line-clamp-1">
+                <div className="text-light-300 md:text-lg font-medium line-clamp-1">
                   Questbook • On-site
                 </div>
                 <div className="flex flex-row gap-4 overflow-x-auto w-job-card md:w-full">
