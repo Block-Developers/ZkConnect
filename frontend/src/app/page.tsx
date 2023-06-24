@@ -32,7 +32,48 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="hero1"></div>
+      <div className="hero1">
+      <div id="features" className="font-extrabold text-2xl pt-20">
+          Explore {stats?.jobs} Jobs
+        </div>
+
+        <div className="flex gap-6 justify-between items-center flex-col md:flex-row w-full">
+          <div className="flex gap-6 items-center w-full">
+            <div className="w-full">
+              <div className="flex flex-col gap-2">
+                <div className="text-xl text-dark-300 dark:text-white font-bold line-clamp-1">
+                  FrontEnd Developer
+                </div>
+                <div className="text-light-300 text-lg font-medium line-clamp-1">
+                  Questbook • On-site
+                </div>
+                <div className="flex flex-row gap-4 overflow-x-auto w-job-card md:w-full">
+                  Chennai
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="w-full md:w-fit flex justify-between items-center md:justify-end md:flex-col md:items-end text-white gap-2">
+            <div className="whitespace-nowrap text-dark-300 dark:text-white font-semibold text-lg ">
+              Salary:{" "}
+            </div>
+
+            <div className="whitespace-nowrap text-md text-dark-300 dark:text-light-300  ">
+              <div className="w-fit">
+                <div className="rounded-lg border border-light-400 dark:border-dark-100 flex items-center justify-center h-32 w-32">
+                  <Image
+                    src={data.company.avatar_url || CompanyPlaceholder}
+                    height={250}
+                    width={250}
+                    alt="Job Logo"
+                    className="rounded-lg"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   );
 }
