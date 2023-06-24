@@ -1,30 +1,28 @@
 import React from "react";
-import Logo from "./Images/logo.png";
+import Logo from "../Images/logo.png";
 import Image from "next/image";
+import Link from "next/link";
+import Navbar from "../components/Navbar";
 
 function Login() {
   return (
     <div>
+      <Navbar />
       <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <Image className="mx-auto h-12 w-auto" src={Logo} alt="Workflow" />
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-100">
-            Sign in to your account
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Or{" "}
-            <a
-              href="#"
-              className="font-medium text-indigo-600 hover:text-indigo-500"
-            >
-              start your 14-day free trial
-            </a>
-          </p>
+          <Image
+            className="mx-auto mt-2 h-32 w-auto"
+            src={Logo}
+            alt="Workflow"
+          />
         </div>
 
-        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className=" sm:mx-auto sm:w-full sm:max-w-md">
+          <div className="bg-white py-6 px-4 shadow sm:rounded-lg sm:px-10">
             <form className="space-y-6" action="#" method="POST">
+              <h2 className=" text-center text-xl font-extrabold text-gray-700">
+                Welcome Back!
+              </h2>
               <div>
                 <label
                   htmlFor="email"
@@ -171,6 +169,12 @@ function Login() {
                   </a>
                 </div>
               </div>
+              <h2 className="mt-6 text-center text-md  text-gray-700">
+             New to ZkConnect?{" "}
+                <Link className="text-indigo-600" href="Signup">
+                  Sign Up
+                </Link>
+              </h2>
             </div>
           </div>
         </div>
