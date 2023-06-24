@@ -16,7 +16,7 @@ const navigation = [
 function MainNav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   return (
-    <div className="z-[23432423423]">
+    <div className="z-[23432423423] bg-[#0F0F0F66] bg-opacity-40">
       <header className="absolute inset-x-0 top-0 z-50">
         <nav
           className="flex items-center justify-between p-6 lg:px-8"

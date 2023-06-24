@@ -4,7 +4,7 @@ import Image from "next/image";
 
 function CustomNav() {
   return (
-    <div className="mb-2">
+    <div className="mb-2 bg-[#0F0F0F66] bg-opacity-40">
       {" "}
       <header className="absolute inset-x-0 top-0  z-50 bg:gray-700">
         <nav

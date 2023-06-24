@@ -10,8 +10,8 @@ export default function CompanyLogin() {
       <div>
         <CustomNav />
       </div>
-      <center className="mt-[60px] py-12 flex justify-center items-center text-white w-full">
-        Hi there!👋 <br /> Let's get started
+      <center className="mt-[80px] py-12 flex justify-center items-center text-white w-full">
+        Hi there! <br /> Let's get started
       </center>
       <div className="flex flex-col m-[150px] mt-[20px] border p-[100px] border-white rounded-2xl text-white text-[24px] leading-6 font-agrandir">
         <CustomFormComp name="Company Name" type="text" />
