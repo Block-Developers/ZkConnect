@@ -20,18 +20,18 @@ export default function JobsForUsers() {
     }
   };
   return (
-    <div className="hero2 overflow-x-hidden">
+    <div className="hero2">
       <div>
         <MainNav />
       </div>
-      <div className="h-screen  mt-[110px]">
-        <div className="flex justify-center items-center  text-[40px] font-agrandir font-extrabold leading-6 text-white pt-[80px]">
+      <div className="py-32">
+        <div className="flex justify-center items-center  md:text-[40px] font-agrandir font-extrabold leading-6 text-white pt-[80px]">
           {" "}
           <span className="underline">Explore Jobs</span>{" "}
           <span className="no-underline">🚀</span>
         </div>
-        <div className="flex mt-[100px] mx-[60px] gap-[100px] w-[1500px] ">
-          <div className="w-[360px] h-[570px] border border-white rounded-[15px] flex    flex-col px-[40px]">
+        <div className="flex px-20 justify-center space-x-8 mt-20">
+          <div className="w-1/4 border border-white rounded-[15px] flex    flex-col px-[40px]">
             <div className="flex justify-center items-center p-6 gap-3">
               <Image src={filter} alt="filter" width="20" height="20" />
               <h2 className="text-[30px] leading-6 font-extrabold font-agrandir text-white">
@@ -78,7 +78,7 @@ export default function JobsForUsers() {
               </button>
             </div>
           </div>
-          <div>
+          <div className="w-3/4 space-y-5">
             <Jobslist
               id="1"
               title="Frontend dev"
@@ -102,11 +102,6 @@ export default function JobsForUsers() {
           </div>{" "}
         </div>
       </div>
-      <div className="invisible">scds</div>
-      <div className="invisible">scds</div>
-      <div className="invisible">scds</div>
-      <div className="invisible">scds</div>
-      <div className="invisible">scds</div>
     </div>
   );
 }
