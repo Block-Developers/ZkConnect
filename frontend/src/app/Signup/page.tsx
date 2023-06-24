@@ -1,7 +1,10 @@
+"use client";
 import React, { useState } from "react";
 import Logo from "../Images/logo.png";
 import Image from "next/image";
 import Link from "next/link";
+import axios from "axios";
+
 import CustomNav from "../components/CustomNav";
 
 function Signup() {
@@ -21,20 +24,24 @@ function Signup() {
 
     // Create a data object with the form fields
     const data = {
-      username,
-      email,
-      password,
+      username: "fdsfa",
+      password: "iufugsfsiofdhf",
+      email: "nagi1@gmail.com",
+      role: "role",
     };
 
     try {
       // Send a POST request to the signup endpoint
-      const response = await fetch("https://zk-connect-api.vercel.app/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await axios.post(
+        "https://zk-connect-api.vercel.app/signup/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       // Handle the response
       if (response.ok) {

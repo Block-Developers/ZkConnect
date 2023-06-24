@@ -54,7 +54,7 @@ function Navbar() {
               href="#"
               className="text-sm font-semibold leading-6 text-gray-200"
             >
-              <button className="border  rounded-xl	 border-white p-3 ">
+              <button className="border  rounded-xl	hover:bg-[#640074] border-white p-3 ">
                 LOGIN/SIGN IN
               </button>
             </Link>
@@ -67,7 +67,7 @@ function Navbar() {
           onClose={setMobileMenuOpen}
         >
           <div className="fixed inset-0 z-50" />
-          <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+          <Dialog.Panel className="fixed inset-y-0 right-0 bg-black z-50 w-full overflow-y-auto px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div className="flex items-center justify-between">
               <a href="#" className="-m-1.5 p-1.5">
                 <div className="flex">

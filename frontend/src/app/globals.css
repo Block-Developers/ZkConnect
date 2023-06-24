@@ -3,18 +3,18 @@
 @tailwind utilities;
 
 .hero1 {
-  background-image: url("../Assets/Frame.png");
+  background-image: url("../Assets/First-bg.png");
   background-size: cover;
   background-position: center;
-  width: 100vw;
-  height: 100vh;
+  width: auto;
+  height: auto;
 }
 .hero2 {
-  background-image: url("../Assets/Frame.png");
+  background-image: url("../Assets/Second-bg.png");
   background-size: cover;
   background-position: center;
-  width: 100%;
-  height: 100%;
+  width: auto;
+  height: auto;
 }
 
 body {
