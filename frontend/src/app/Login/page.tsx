@@ -2,12 +2,12 @@ import React from "react";
 import Logo from "../Images/logo.png";
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "../components/Navbar";
+import CustomNav from "../components/CustomNav";
 
 function Login() {
   return (
     <div>
-      <Navbar />
+      <CustomNav />
       <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <Image
@@ -170,7 +170,7 @@ function Login() {
                 </div>
               </div>
               <h2 className="mt-6 text-center text-md  text-gray-700">
-             New to ZkConnect?{" "}
+                New to ZkConnect?{" "}
                 <Link className="text-indigo-600" href="Signup">
                   Sign Up
                 </Link>
