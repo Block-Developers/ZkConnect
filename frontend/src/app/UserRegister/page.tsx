@@ -5,28 +5,31 @@ import CustomFormComp from "../components/CustomFormComp";
 import CustomTextBox from "../components/CustomTextBox";
 import CustomNav from "../components/customNav";
 import CustomFileUpload from "../components/CustomFileUpload";
-export default function Starting() {
-  const [selectedButton, setSelectedButton] = useState(null);
-  const [selectedSkills, setSelectedSkills] = useState([]);
 
-  const handleButtonClick = (buttonId) => {
+export default function Starting(): JSX.Element {
+  const [selectedButton, setSelectedButton] = useState<number | null>(null);
+  const [selectedSkills, setSelectedSkills] = useState<number[]>([]);
+
+  const handleButtonClick = (buttonId: number): void => {
     setSelectedButton(buttonId);
   };
-  const handleSkillSelect = (buttonId) => {
+
+  const handleSkillSelect = (buttonId: number): void => {
     if (selectedSkills.includes(buttonId)) {
       setSelectedSkills(selectedSkills.filter((id) => id !== buttonId));
     } else {
       setSelectedSkills([...selectedSkills, buttonId]);
     }
   };
+
   return (
     <div className="hero2">
       <div>
         <CustomNav />
       </div>
       <div>
-        <center className=" mt-[60px] py-12 flex justify-center items-center text-white w-full">
-          Hi there! <br /> Let's get started
+        <center className="mt-[60px] py-12 flex justify-center items-center text-white w-full">
+          Hi there!👋 <br /> Let's get started
         </center>
         <div className="flex flex-col m-[150px] mt-[20px] border p-[100px] border-white rounded-2xl text-white text-[24px] leading-6 font-agrandir">
           <div className="flex">
@@ -53,7 +56,7 @@ export default function Starting() {
                   type="text"
                   name=""
                   id=""
-                />{" "}
+                />
               </div>
             </div>
           </div>
@@ -164,12 +167,12 @@ export default function Starting() {
             </div>
           </div>
 
-          <div className="flex justify-center items-center mt-[50px] cursor-pointer bg-[#DB00FF87] bg-opacity-[53%] py-5 ">
+          <div className="flex justify-center items-center mt-[50px] cursor-pointer bg-[#DB00FF87] bg-opacity-[53%] py-5">
             Continue ➡️
           </div>
         </div>
       </div>
-      <div>dfdf</div>
+      <div className="invisible">dfdf</div>
     </div>
   );
 }
