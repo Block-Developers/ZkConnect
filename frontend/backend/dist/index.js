@@ -113,8 +113,8 @@ app.get('/status/:callbackId', (req, res) => __awaiter(void 0, void 0, void 0, f
     res.json({ status });
 }));
 app.use(express_1.default.text({ type: '*/*' }));
-app.post('/callback/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    if (!req.params.id) {
+app.post('/callback', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!req.query.id) {
         res.status(400).send(`400 - Bad Request: callbackId is required`);
         return;
     }
@@ -122,13 +122,13 @@ app.post('/callback/:id', (req, res) => __awaiter(void 0, void 0, void 0, functi
         res.status(400).send(`400 - Bad Request: body is required`);
         return;
     }
-    const reqBody = JSON.parse(decodeURIComponent(req.body));
-    if (!reqBody.claims || !reqBody.claims.length) {
+    const proofs = reclaim_sdk_1.reclaimprotocol.utils.getProofsFromRequestBody(req.body);
+    if (!proofs || !proofs.length) {
         res.status(400).send(`400 - Bad Request: claims are required`);
         return;
     }
-    const callbackId = req.params.id;
-    const claims = { claims: reqBody.claims };
+    const callbackId = req.query.id;
+    const claims = { claims: proofs };
     try {
         const linksCollection = yield getLinksCollection();
         const submittedLink = yield linksCollection.findOne({ callback_id: callbackId });
@@ -161,7 +161,7 @@ app.post('/callback/:id', (req, res) => __awaiter(void 0, void 0, void 0, functi
 		"
 	>
 		<h1>
-		Submitted the Claims! You're eligible for Hackathon Submission.
+		Your'e identity is Claiamed!.
 		</h1>
 	</div>`);
 }));

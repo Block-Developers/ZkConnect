@@ -181,14 +181,10 @@ export default function ApplicationProcess() {
           <div className="py-5">
             {status === "verified" ? (
               <div className="">
-                <h3 className="text-3xl font-bold text-yellow">
-                  <span className="opacity-100">🚀</span> Thanks for
-                  verification <span className="opacity-100">🚀</span>
-                  <div className="flex justify-between">
-                    <p></p>
-                    <button className="btn-grad  text-lg">Mint your NFT</button>
-                    <p></p>
-                  </div>
+                <h3 className="text-3xl font-bold text-center text-yellow">
+                  <span className="opacity-100">🚀</span> Yovv you&apos;re
+                  Verified <span className="opacity-100">🚀</span>
+                  <div className="flex justify-between"></div>
                 </h3>
               </div>
             ) : appUrl && callbackId ? (
