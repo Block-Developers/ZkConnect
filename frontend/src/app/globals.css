@@ -20,3 +20,11 @@
 body {
   background: #000;
 }
+
+.hero3 {
+  background-image: url("../app/Images/Dashbg.png");
+  background-size: cover;
+  background-position: center;
+  width: auto;
+  height: auto;
+}
