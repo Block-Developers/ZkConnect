@@ -23,19 +23,19 @@ export default function AppliedForCompanyApplications() {
                     <thead className="border-b font-medium dark:border-neutral-500">
                       <tr>
                         <th scope="col" className="md:px-6 md:py-4 py-2 px-3">
-                          Name
+                          Company's Name
                         </th>
                         <th scope="col" className="md:px-6 md:py-4 py-2 px-3">
-                          Github Link
+                          Applied role{" "}
                         </th>
                         <th scope="col" className="md:px-6 md:py-4 py-2 px-3">
-                          Contribution
+                          No of applications
                         </th>
                         <th scope="col" className="md:px-6 md:py-4 py-2 px-3">
-                          Pull Request
+                          Date of Submitting
                         </th>
                         <th scope="col" className="md:px-6 md:py-4 py-2 px-3">
-                          Qualification
+                          Status
                         </th>
                         <th scope="col" className="md:px-6 md:py-4 py-2 px-3">
                           Resume
