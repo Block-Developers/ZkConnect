@@ -6,6 +6,7 @@ import CustomTextBox from "../components/CustomTextBox";
 import CustomNav from "../components/customNav";
 import CustomFileUpload from "../components/CustomFileUpload";
 import axios from "axios";
+import { getLocalStorageWithExpiry } from "../components/store";
 
 export default function Starting(): JSX.Element {
   const [selectedButton, setSelectedButton] = useState<number | null>(null);
@@ -41,21 +42,23 @@ export default function Starting(): JSX.Element {
   const handleFormSubmit = async (): Promise<void> => {
     const formData = new FormData();
     formData.append("file", resume);
-    const id = localStorage.getItem("userId");
+    const id = getLocalStorageWithExpiry("userId");
+    console.log(id, "id");
     // Send the POST request
 
     const response = await axios.post(
-      "https://zk-connect-api.vercel.app/upload_img_file/",
+      "https://zk-connect-api.vercel.app/profile/",
       {
-        id: id,
-        firstName: firstName,
-        lastName: lastName,
+        userid: id,
+        first_name: firstName,
+        last_name: lastName,
         email: email,
         location: location,
-        contactNumber: contactNumber,
-        profileBio: profileBio,
-        file: resume,
-        type: selectedButton,
+        contact_number: contactNumber,
+        profile_bio: profileBio,
+        resume_image: resume,
+        file_name: resume.name,
+        usr_type: selectedButton,
         skills: selectedSkills,
       }
     );
