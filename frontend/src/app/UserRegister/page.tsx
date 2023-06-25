@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-
+import { useStorageUpload } from "@thirdweb-dev/react";
 import CustomFormComp from "../components/CustomFormComp";
 import CustomTextBox from "../components/CustomTextBox";
 import CustomNav from "../components/customNav";
@@ -9,6 +9,26 @@ import CustomFileUpload from "../components/CustomFileUpload";
 export default function Starting(): JSX.Element {
   const [selectedButton, setSelectedButton] = useState<number | null>(null);
   const [selectedSkills, setSelectedSkills] = useState<number[]>([]);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [location, setLocation] = useState("");
+  const [contactNumber, setContactNumber] = useState("");
+  const [resume, setResume] = useState(null); // Initialize the state variable for the resume file
+  const [profileBio, setProfileBio] = useState(""); // Initialize the state variable for the text area
+
+  // ...
+
+  const handleProfileBioChange = (event) => {
+    const value = event.target.value;
+    setProfileBio(value);
+  };
+  // ...
+
+  const handleResumeChange = (event) => {
+    const file = event.target.files[0];
+    setResume(file);
+  };
 
   const handleButtonClick = (buttonId: number): void => {
     setSelectedButton(buttonId);
@@ -21,7 +41,51 @@ export default function Starting(): JSX.Element {
       setSelectedSkills([...selectedSkills, buttonId]);
     }
   };
+  const handleFormSubmit = async (): Promise<void> => {
+    try {
+      const resumeFile = document.getElementById(
+        "resume-file"
+      ) as HTMLInputElement;
+      if (resumeFile && resumeFile.files && resumeFile.files[0]) {
+        const formData = new FormData();
+        formData.append("file", resumeFile.files[0]);
+        const { mutateAsync: upload } = useStorageUpload();
+        const uploadUrl = await upload({
+          data: [formData],
+          options: {
+            uploadWithGatewayUrl: true,
+            uploadWithoutDirectory: true,
+          },
+        });
+        console.log("upload URL", uploadUrl);
+        const resumeHash = uploadUrl;
+        setResume(resumeHash);
+        console.log(resumeHash);
+      }
 
+      // Prepare the data to be sent in the POST request
+      const postData = {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        location: location,
+        contactNumber: contactNumber,
+        profileBio: profileBio,
+        resume: resume,
+        type: selectedButton,
+        skills: selectedSkills,
+      };
+
+      // Send the POST request
+      const response = await axios.post(
+        "https://zk-connect-api.vercel.app/profile",
+        postData
+      );
+      console.log("Response:", response.data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
   return (
     <div className="hero2">
       <div>
@@ -29,23 +93,65 @@ export default function Starting(): JSX.Element {
       </div>
       <div>
         <center className="mt-[80px] py-12 flex justify-center items-center text-white w-full">
-          Hi there!👋 <br /> Let's get started
+          Hi there!👋 <br /> Let&apos;s get started
         </center>
         <div className="flex flex-col px-5 mx-6 md:m-[150px]  md:mt-[20px] border md:p-[100px] border-white rounded-2xl text-white md:text-[24px] leading-6 font-agrandir">
           <div className="flex flex-row gap-4">
-            <CustomFormComp name="First Name" type="text" />
-            <CustomFormComp name="Last Name" type="text" />
+            <CustomFormComp
+              name="First Name"
+              type="text"
+              value={firstName}
+              onChange={(event) => {
+                setFirstName(event.target.value);
+              }}
+            />
+            <CustomFormComp
+              name="Last Name"
+              type="text"
+              value={lastName}
+              onChange={(event) => {
+                setLastName(event.target.value);
+              }}
+            />
           </div>
-          <CustomFormComp name="Email - ID" type="email" />
-          <CustomFormComp name="Location" type="text" />
-          <CustomFormComp name="Contact Number" type="number" />
+          <CustomFormComp
+            name="Email - ID"
+            type="email"
+            value={email}
+            onChange={(event) => {
+              setEmail(event.target.value);
+            }}
+          />
+          <CustomFormComp
+            name="Location"
+            type="text"
+            value={location}
+            onChange={(event) => {
+              setLocation(event.target.value);
+            }}
+          />
+          <CustomFormComp
+            name="Contact Number"
+            type="number"
+            value={contactNumber}
+            onChange={(event) => {
+              setContactNumber(event.target.value);
+            }}
+          />
 
-          <CustomTextBox name="Profile Bio" placeholder="Tell us about you" />
+          <CustomTextBox
+            name="Profile Bio"
+            placeholder="Tell us about you"
+            value={profileBio}
+            onChange={handleProfileBioChange}
+          />
 
           <CustomFileUpload
             name="Resume"
             type="file"
             accepted="application/pdf"
+            value={resume}
+            onChange={handleResumeChange}
           />
 
           <div className="flex flex-col mt-5 md:mt-[50px]">
@@ -143,9 +249,9 @@ export default function Starting(): JSX.Element {
             </div>
           </div>
 
-          <div className="flex justify-center rounded-lg items-center mt-5 mb-5 md:mt-[50px] cursor-pointer bg-[#DB00FF87] bg-opacity-[53%] py-5">
+          <button onClick={handleFormSubmit} className="flex justify-center rounded-lg items-center mt-5 mb-5 md:mt-[50px] cursor-pointer bg-[#DB00FF87] bg-opacity-[53%] py-5">
             Continue ➡️
-          </div>
+          </button>
         </div>
       </div>
       <div className="invisible">dfdf</div>

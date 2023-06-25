@@ -7,6 +7,8 @@ import axios from "axios";
 import { TfiUser } from "react-icons/tfi";
 import { FaBullhorn } from "react-icons/fa";
 import CustomNav from "../components/CustomNav";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Signup() {
   const [username, setUsername] = useState("");
@@ -42,6 +44,8 @@ function Signup() {
       console.log(response);
       // Handle the response
       if (response.status == 200 || 201 || 202 || 203 || 203) {
+        toast.success("Signup successful!", { autoClose: 4000 });
+
         // Signup successful, perform desired actions (e.g., redirect to a success page)
         if (role === "candidate") {
           window.location.href = "/UserRegister"; // Replace "/candidateEndpoint" with the URL for the candidate endpoint
@@ -50,6 +54,7 @@ function Signup() {
         }
         console.log("Signup successful");
       } else {
+        toast.error("Signup failed. Please try again.", { autoClose: 4000 });
         // Signup failed, handle the error (e.g., display an error message)
         console.log("Signup failed");
       }
@@ -189,6 +194,7 @@ function Signup() {
                 </div>
               </form>
             )}
+            <ToastContainer />
             <h2 className="mt-6 text-center text-md  text-gray-700">
               Already have an account on ZkConnect?{" "}
               <Link className="text-indigo-600" href="Login">

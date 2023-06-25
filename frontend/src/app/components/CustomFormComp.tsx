@@ -1,6 +1,6 @@
 import React from "react";
 
-const CustomFormComp = ({ name, type }) => {
+const CustomFormComp = ({ name, type, value, onChange }) => {
   return (
     <div className="flex flex-col w-full mt-5">
       <div className="md:text-[24px] text-white leading-6 font-agrandir pb-3 cursor-pointer">
@@ -12,6 +12,8 @@ const CustomFormComp = ({ name, type }) => {
           type={type}
           name=""
           id=""
+          value={value}
+          onChange={onChange}
         />
       </div>
     </div>
