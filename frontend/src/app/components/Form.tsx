@@ -39,7 +39,7 @@ const Form = ({ proveIt }: FormProps) => {
         onChange={handleChange}
         value={input.repoLink}
         placeholder="GitHub repo link"
-        className="w-full px-5 py-5 lg:py-3 bg-white text-offBlack rounded-xl"
+        className="w-full px-5 py-5 lg:py-3 bg-white text-offBlack rounded-xl text-black"
       />
 
       <button type="submit" className="btn-grad">

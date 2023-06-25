@@ -21,7 +21,6 @@ body {
   background: #000;
 }
 
-<<<<<<< HEAD
 .btn-grad {
 	background-image: linear-gradient(to right, #fc00ff 0%, #00dbde  51%, #fc00ff  100%);
 	
@@ -42,7 +41,6 @@ body {
 	text-decoration: none;
   }
  
-=======
 .hero3 {
   background-image: url("../app/Images/Dashbg.png");
   background-size: cover;
@@ -60,4 +58,3 @@ body {
     height: auto;
   }
 }
->>>>>>> 154316eecd8f77411186251a6371422d48ed8780

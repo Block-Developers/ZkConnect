@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from 'express'
 import dotenv from 'dotenv'
-import { Reclaim, generateUuid } from '@reclaimprotocol/reclaim-sdk'
+import { reclaimprotocol } from '@reclaimprotocol/reclaim-sdk'
 import cors from 'cors'
 import { MongoClient } from 'mongodb';
 
@@ -25,7 +25,7 @@ const getLinksCollection = async (): Promise<any> => {
 	return linksCollection;
 };
 
-const reclaim = new Reclaim(callbackUrl)
+const reclaim = new reclaimprotocol.Reclaim()
 
 const isValidRepo = (repoStr: string) => {
 	return repoStr.indexOf('/') > -1 && repoStr.split('/').length === 2
@@ -44,19 +44,33 @@ app.get('/home/repo', async (req: Request, res: Response) => {
 		return
 	}
 
-	const callbackId = 'repo-' + generateUuid()
-	const template = (
-		await reclaim.connect('ZKConnect', [
-			{
-				provider: 'github-contributor',
-				params: {
-					repo: repoFullName,
-				},
-			},
-		])
-	).generateTemplate(callbackId)
-	const url = template.url
+	const callbackId = 'repo-' + reclaimprotocol.utils.generateUuid()
+	// const template = (
+	// 	await reclaim.requestProofs()
+	// const url = template.url
+	const requestProof = new reclaim.CustomProvider({
+		provider: 'github-commits',
+		payload: {
+			repository: repoFullName,
+			type: 'github-commits',
+			searchQuery: {
+				keywords: [],
+				qualifiers: {}
+			}
+		}
+	})
+
+	const template = reclaim.requestProofs({
+		title: 'ZKCOnnect',
+		baseCallbackUrl: callbackUrl,
+		callbackId: callbackId,
+		requestedProofs: [
+			requestProof
+		]
+
+	})
 	const templateId = template.id
+	const url = template.reclaimUrl
 
 	try {
 		const linksCollection = await getLinksCollection();

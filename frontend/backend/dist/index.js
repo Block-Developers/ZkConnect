@@ -35,7 +35,7 @@ const getLinksCollection = () => __awaiter(void 0, void 0, void 0, function* () 
     }
     return linksCollection;
 });
-const reclaim = new reclaim_sdk_1.Reclaim(callbackUrl);
+const reclaim = new reclaim_sdk_1.reclaimprotocol.Reclaim();
 const isValidRepo = (repoStr) => {
     return repoStr.indexOf('/') > -1 && repoStr.split('/').length === 2;
 };
@@ -50,17 +50,31 @@ app.get('/home/repo', (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.status(400).send(`400 - Bad Request: invalid repository name`);
         return;
     }
-    const callbackId = 'repo-' + (0, reclaim_sdk_1.generateUuid)();
-    const template = (yield reclaim.connect('ZKConnect', [
-        {
-            provider: 'github-contributor',
-            params: {
-                repo: repoFullName,
-            },
-        },
-    ])).generateTemplate(callbackId);
-    const url = template.url;
+    const callbackId = 'repo-' + reclaim_sdk_1.reclaimprotocol.utils.generateUuid();
+    // const template = (
+    // 	await reclaim.requestProofs()
+    // const url = template.url
+    const requestProof = new reclaim.CustomProvider({
+        provider: 'github-commits',
+        payload: {
+            repository: repoFullName,
+            type: 'github-commits',
+            searchQuery: {
+                keywords: [],
+                qualifiers: {}
+            }
+        }
+    });
+    const template = reclaim.requestProofs({
+        title: 'ZKCOnnect',
+        baseCallbackUrl: callbackUrl,
+        callbackId: callbackId,
+        requestedProofs: [
+            requestProof
+        ]
+    });
     const templateId = template.id;
+    const url = template.reclaimUrl;
     try {
         const linksCollection = yield getLinksCollection();
         yield linksCollection.insertOne({
