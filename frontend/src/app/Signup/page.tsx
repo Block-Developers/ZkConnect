@@ -9,6 +9,10 @@ import { FaBullhorn } from "react-icons/fa";
 import CustomNav from "../components/CustomNav";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {
+  getLocalStorageWithExpiry,
+  setLocalStorageWithExpiry,
+} from "../components/store";
 
 function Signup() {
   const [username, setUsername] = useState("");
@@ -47,6 +51,13 @@ function Signup() {
         toast.success("Signup successful!", { autoClose: 4000 });
 
         // Signup successful, perform desired actions (e.g., redirect to a success page)
+
+        const id = response?.data?.id;
+
+        // Store the id value in localStorage
+        setLocalStorageWithExpiry("userId", id, 30);
+        const retrievedValue = getLocalStorageWithExpiry("userId"); // Retrieve the stored value (returns null if expired or not found)
+        console.log(retrievedValue);
         if (role === "candidate") {
           window.location.href = "/UserRegister"; // Replace "/candidateEndpoint" with the URL for the candidate endpoint
         } else if (role === "recruiter") {

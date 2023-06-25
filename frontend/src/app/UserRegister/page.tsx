@@ -45,7 +45,7 @@ export default function Starting(): JSX.Element {
     // Send the POST request
 
     const response = await axios.post(
-      "https://zk-connect-api.vercel.app/upload_img_file/",
+      "https://zk-connect-api.vercel.app/profile/",
       {
         id: id,
         firstName: firstName,
@@ -55,6 +55,7 @@ export default function Starting(): JSX.Element {
         contactNumber: contactNumber,
         profileBio: profileBio,
         file: resume,
+        file_name: resume.name,
         type: selectedButton,
         skills: selectedSkills,
       }
