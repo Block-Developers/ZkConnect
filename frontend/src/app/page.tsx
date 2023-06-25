@@ -95,7 +95,7 @@ export default function Home() {
             id="features"
             className="font-extrabold text-center text-white pb-5 text-2xl pt-20"
           >
-            Contact Us
+            Let&apos;s gooo!
           </div>
         </div>
       </div>
