@@ -1,9 +1,76 @@
+"use client";
 import Link from "next/link";
 import { BiSearchAlt2 } from "react-icons/bi";
 import Image from "next/image";
 import logo from "../../Assets/Vector.png";
 import MainNav from "../components/mainNav";
+import QrMessage from "../components/QrMessage";
+import Form, { Inputs } from "../components/Form";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { extractGitHubRepoPath, handleError } from "../utils";
+
+const getCallbackUrl = "http://192.168.237.5:8000/home";
+const statusUrl = "http://192.168.237.5:8000/status";
+const fetchdata = "http://192.168.237.5:8000";
+
 export default function ApplicationProcess() {
+  const [callbackId, setCallbackId] = useState<string | null>(null);
+  const [status, setStatus] = useState<string | null>(null);
+  const [appUrl, setAppUrl] = useState<string | null>(null);
+  const [response, SetResponse] = useState();
+
+  const getStatus = async (callbackId: string) => {
+    const response = await axios.get(statusUrl + `/${callbackId}`);
+    setStatus(response.data.status);
+  };
+
+  const getCallback = async (input: Inputs) => {
+    const params = {
+      repo: extractGitHubRepoPath(input.repoLink),
+    };
+    return toast.promise(
+      axios.get(getCallbackUrl + "/repo", {
+        params,
+      }),
+      {
+        loading: "Loading..",
+        error: (error) => handleError(error),
+        success: "Success",
+      }
+    );
+  };
+
+  const proveIt = async (input: Inputs) => {
+    const response = await getCallback(input);
+    if (response.status !== 200) {
+      throw new Error("Something went wrong");
+    }
+    setCallbackId(response.data.callbackId);
+    setAppUrl(response.data.url);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(fetchdata + "/data");
+      const data = await response.json();
+      if (data.length > 0) {
+        const lastResponse = data.slice(-1)[0];
+        console.log("lastresponse", lastResponse);
+        SetResponse(lastResponse);
+      }
+    };
+    fetchData();
+  }, []);
+  console.log(response);
+  useEffect(() => {
+    if (!callbackId) return;
+    const interval = setInterval(() => {
+      getStatus(callbackId);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [callbackId]);
   return (
     <div className="hero2 ">
       <div className="bg-[#110F0F]">
@@ -112,21 +179,36 @@ export default function ApplicationProcess() {
           </div>
 
           <div className="py-5">
-            <div className="text-xl text-white font-bold line-clamp-1">
-              Provide your Github
-            </div>
-            <div className="flex gap-[50px] py-6">
-              <div className="w-full">
-                <input
-                  type="url"
-                  className="bg-transparent border w-3/4 rounded-lg h-[30px]"
-                />
-                <button className="border rounded-xl w-0.7/4 mx-[20px] mt-5 md:mt-0 px-5 py-3 border-black bg-white text-black text-[20px] font-agrandir font-extrabold leading-6">
-                  Reclaim
-                </button>
-                <div className=" text-center"></div>
+            {status === "verified" ? (
+              <div className="">
+                <h3 className="text-3xl font-bold text-yellow">
+                  <span className="opacity-100">🚀</span> Thanks for
+                  verification <span className="opacity-100">🚀</span>
+                  <div className="flex justify-between">
+                    <p></p>
+                    <button className="btn-grad  text-lg">Mint your NFT</button>
+                    <p></p>
+                  </div>
+                </h3>
               </div>
-            </div>
+            ) : appUrl && callbackId ? (
+              <>
+                <div className="text-xl text-white font-bold text-center line-clamp-1">
+                  Open Your Reclaim Wallet App
+                </div>
+                <div className="flex justify-center md:pl-32 ">
+                  <QrMessage appUrl={appUrl} />
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="text-xl text-white font-bold line-clamp-1">
+                  Provide your Github
+                </div>
+
+                <Form proveIt={proveIt} />
+              </>
+            )}
           </div>
           <div className="py-5">
             <div className="text-xl text-white font-bold line-clamp-1">
