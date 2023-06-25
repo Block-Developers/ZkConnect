@@ -5,6 +5,7 @@ import CustomFormComp from "../components/CustomFormComp";
 import CustomTextBox from "../components/CustomTextBox";
 import CustomNav from "../components/customNav";
 import CustomFileUpload from "../components/CustomFileUpload";
+import axios from "axios";
 
 export default function Starting(): JSX.Element {
   const [selectedButton, setSelectedButton] = useState<number | null>(null);
@@ -17,16 +18,12 @@ export default function Starting(): JSX.Element {
   const [resume, setResume] = useState(null); // Initialize the state variable for the resume file
   const [profileBio, setProfileBio] = useState(""); // Initialize the state variable for the text area
 
-  // ...
-
   const handleProfileBioChange = (event) => {
     const value = event.target.value;
     setProfileBio(value);
   };
-  // ...
 
-  const handleResumeChange = (event) => {
-    const file = event.target.files[0];
+  const handleResumeChange = (file) => {
     setResume(file);
   };
 
@@ -42,50 +39,29 @@ export default function Starting(): JSX.Element {
     }
   };
   const handleFormSubmit = async (): Promise<void> => {
-    try {
-      const resumeFile = document.getElementById(
-        "resume-file"
-      ) as HTMLInputElement;
-      if (resumeFile && resumeFile.files && resumeFile.files[0]) {
-        const formData = new FormData();
-        formData.append("file", resumeFile.files[0]);
-        const { mutateAsync: upload } = useStorageUpload();
-        const uploadUrl = await upload({
-          data: [formData],
-          options: {
-            uploadWithGatewayUrl: true,
-            uploadWithoutDirectory: true,
-          },
-        });
-        console.log("upload URL", uploadUrl);
-        const resumeHash = uploadUrl;
-        setResume(resumeHash);
-        console.log(resumeHash);
-      }
+    const formData = new FormData();
+    formData.append("file", resume);
+    const id = localStorage.getItem("userId");
+    // Send the POST request
 
-      // Prepare the data to be sent in the POST request
-      const postData = {
+    const response = await axios.post(
+      "https://zk-connect-api.vercel.app/upload_img_file/",
+      {
+        id: id,
         firstName: firstName,
         lastName: lastName,
         email: email,
         location: location,
         contactNumber: contactNumber,
         profileBio: profileBio,
-        resume: resume,
+        file: resume,
         type: selectedButton,
         skills: selectedSkills,
-      };
-
-      // Send the POST request
-      const response = await axios.post(
-        "https://zk-connect-api.vercel.app/profile",
-        postData
-      );
-      console.log("Response:", response.data);
-    } catch (error) {
-      console.error("Error:", error);
-    }
+      }
+    );
+    console.log("Response:", response.data);
   };
+
   return (
     <div className="hero2">
       <div>
@@ -150,7 +126,6 @@ export default function Starting(): JSX.Element {
             name="Resume"
             type="file"
             accepted="application/pdf"
-            value={resume}
             onChange={handleResumeChange}
           />
 
@@ -249,7 +224,10 @@ export default function Starting(): JSX.Element {
             </div>
           </div>
 
-          <button onClick={handleFormSubmit} className="flex justify-center rounded-lg items-center mt-5 mb-5 md:mt-[50px] cursor-pointer bg-[#DB00FF87] bg-opacity-[53%] py-5">
+          <button
+            onClick={handleFormSubmit}
+            className="flex justify-center rounded-lg items-center mt-5 mb-5 md:mt-[50px] cursor-pointer bg-[#DB00FF87] bg-opacity-[53%] py-5"
+          >
             Continue ➡️
           </button>
         </div>

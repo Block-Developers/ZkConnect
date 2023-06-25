@@ -7,6 +7,10 @@ import CustomNav from "../components/CustomNav";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {
+  getLocalStorageWithExpiry,
+  setLocalStorageWithExpiry,
+} from "../components/store";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -23,16 +27,25 @@ function Login() {
           password: password,
         }
       );
+      console.log(response);
 
       if (response.status === 200 || 201 || 202 || 203 || 204) {
         // Successful login
         toast.success("Login successful!", { autoClose: 4000 });
-        // Handle the response as needed
-        const res = axios.get(
-          "https://zk-connect-api.vercel.app/get_user_data"
-        );
-        console.log(res);
-        // window.location.href = "/Dashboard";
+        const id = response?.data?.id;
+
+        // Store the id value in localStorage
+        setLocalStorageWithExpiry("userId", id, 30);
+        const retrievedValue = getLocalStorageWithExpiry("userId"); // Retrieve the stored value (returns null if expired or not found)
+        console.log(retrievedValue);
+        // const res = await axios.post(
+        //   "https://zk-connect-api.vercel.app/get_profile_data",
+        //   {
+        //     id: id,
+        //   }
+        // );
+        // console.log(res?.data);
+        window.location.href = "/Dashboard";
       } else {
         // Error handling for unsuccessful login
         toast.error("Login failed. Please try again.", { autoClose: 4000 });
