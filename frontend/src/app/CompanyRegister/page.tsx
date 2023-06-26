@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import axios from "axios";
 import CustomFileUpload from "../components/CustomFileUpload";
@@ -7,15 +8,15 @@ import CustomNav from "../components/customNav";
 
 export default function CompanyLogin() {
   const [formData, setFormData] = useState({
-    companyName: "",
-    companyEmail: "",
-    companyNumber: "",
-    companyLinkedIn: "",
-    companyLocation: "",
-    employees: 0,
-    startingYear: 0,
-    companyProfile: "",
-    logo: null,
+    CompanyName: "",
+    CompanyEmail: "",
+    CompanyNumber: "",
+    CompanyLinkedIn: "",
+    CompanyLocation: "",
+    Employees: "0",
+    StartingYear: "0",
+    CompanyProfile: "",
+    Logo: null,
   });
 
   const handleChange = (event) => {
@@ -37,21 +38,21 @@ export default function CompanyLogin() {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3005/company-login",
+        "https://zk-connect-api.vercel.app/Rec_Profile_data/",
         formData
       );
       console.log("Data sent successfully:", response.data);
       // Reset form after successful submission if needed
       setFormData({
-        companyName: "",
-        companyEmail: "",
-        companyNumber: "",
-        companyLinkedIn: "",
-        companyLocation: "",
-        employees: 0,
-        startingYear: 0,
-        companyProfile: "",
-        logo: null,
+        CompanyName: "",
+        CompanyEmail: "",
+        CompanyNumber: "",
+        CompanyLinkedIn: "",
+        CompanyLocation: "",
+        Employees: "0",
+        StartingYear: "0",
+        CompanyProfile: "",
+        Logo: null,
       });
     } catch (error) {
       console.error("Error sending data:", error);
@@ -70,49 +71,49 @@ export default function CompanyLogin() {
         <CustomFormComp
           name="Company Name"
           type="text"
-          value={formData.companyName}
+          value={formData.CompanyName}
           onChange={handleChange}
         />
         <CustomFormComp
-          name="Company Email-ID"
+          name="Company Email"
           type="email"
-          value={formData.companyEmail}
+          value={formData.CompanyEmail}
           onChange={handleChange}
         />
         <CustomFormComp
           name="Company Number"
           type="number"
-          value={formData.companyNumber}
+          value={formData.CompanyNumber}
           onChange={handleChange}
         />
         <CustomFormComp
-          name="Company LinkedIn Link"
+          name="Company LinkedIn"
           type="url"
-          value={formData.companyLinkedIn}
+          value={formData.CompanyLinkedIn}
           onChange={handleChange}
         />
         <CustomFormComp
           name="Company Location"
           type="text"
-          value={formData.companyLocation}
+          value={formData.CompanyLocation}
           onChange={handleChange}
         />
         <CustomFormComp
-          name="No of Employees"
+          name="Employees"
           type="number"
-          value={formData.employees}
+          value={formData.Employees}
           onChange={handleChange}
         />
         <CustomFormComp
           name="Starting Year"
           type="number"
-          value={formData.startingYear}
+          value={formData.StartingYear}
           onChange={handleChange}
         />
         <CustomTextBox
-          name="Company's Profile"
+          name="Company Profile"
           placeholder="Tell us about your company"
-          value={formData.companyProfile}
+          value={formData.CompanyProfile}
           onChange={handleChange}
         />
         <CustomFileUpload
