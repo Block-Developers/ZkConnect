@@ -1,11 +1,36 @@
+"use client";
 import Jobslist from "./components/Jobslist";
 import NavBar from "./components/Navbar";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import User from "../Assets/users.png";
+import Company from "../Assets/Company.png";
+import { useState } from "react";
 
 export default function Home() {
+  const [showImage, setShowImage] = useState(false);
+  const [buttonStyle, setButtonStyle] = useState({
+    backgroundColor: "black",
+  });
+  const [buttonStyle2, setButtonStyle2] = useState({
+    backgroundColor: "black",
+  });
+  const handleButtonClick = () => {
+    setShowImage(true);
+    setButtonStyle({
+      ...buttonStyle,
+      backgroundColor: showImage ? "#9000A7" : "black",
+    });
+  };
+  const handleButtonClick2 = () => {
+    setShowImage(false);
+    setButtonStyle2({
+      ...buttonStyle2,
+      backgroundColor: !showImage ? "#9000A7" : "black",
+    });
+  };
+
   return (
     <main>
       <Head>
@@ -85,12 +110,27 @@ export default function Home() {
             How it Works?
           </div>
           <div className="flex justify-center pb-10 text-white text-center font-extrabold text-lg ">
-            <p className="border border-white bg-[#9000A7] p-2 rounded-l-md">
-              As User
-            </p>
-            <p className="border border-white p-2 rounded-r-md">As Company</p>
+            <button
+              className="border border-white  p-2 rounded-l-md"
+              style={buttonStyle}
+              onClick={handleButtonClick}
+            >
+              {" "}
+              As User{" "}
+            </button>
+            <button
+              className="border border-white p-2 rounded-r-md"
+              style={buttonStyle2}
+              onClick={handleButtonClick2}
+            >
+              As Company
+            </button>
           </div>
-          <Image src={User} alt="" />
+          {showImage ? (
+            <Image src={User} alt="" />
+          ) : (
+            <Image src={Company} alt="" />
+          )}
           <div
             id="features"
             className="font-extrabold text-center text-white pb-5 text-2xl pt-20"
