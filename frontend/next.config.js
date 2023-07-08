@@ -1,20 +1,6 @@
 /** @type {import('next').NextConfig} */
-
 const nextConfig = {
-  reactStrictMode: false,
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "blogger.googleusercontent.com",
-        port: "",
-        pathname: "img/b/**",
-      },
-    ],
-  },
+  reactStrictMode: true,
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {
@@ -38,6 +24,13 @@ const nextConfig = {
   },
 };
 
+module.exports = {
+  eslint: {
+    // Warning: This allows production builds to successfully complete even if
+    // your project has ESLint errors.
+    ignoreDuringBuilds: true,
+  },
+};
 module.exports = nextConfig;
 module.exports = {
   typescript: {
@@ -47,15 +40,4 @@ module.exports = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
-};
-module.exports = {
-  eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
-    ignoreDuringBuilds: true,
-  },
-};
-
-module.exports = {
-  pageExtensions: ["mdx", "md", "jsx", "tsx", "ts"],
 };
