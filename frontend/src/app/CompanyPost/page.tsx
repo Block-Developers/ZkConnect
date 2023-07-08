@@ -25,11 +25,21 @@ export default function CompanyPost() {
           Create a Job Hiring Post
         </center>
         <div className="flex flex-col md:m-[150px] m-[2 0px] mt-[20px] border md:p-[100px] p-[30px] border-white rounded-2xl text-white text-[24px] leading-6 font-agrandir">
-          <CustomFormComp name="Role Name" type="text" />
-          <CustomFormComp name="Mode of Work" type="text" />
-          <CustomFormComp name="Duration" type="text" />
-          <CustomFormComp name="Stipend" type="text" />
-          <CustomTextBox name="About Role of Hiring" placeholder=" " />
+          <CustomFormComp name="Role Name" type="text" value="" onChange="" />
+          <CustomFormComp
+            name="Mode of Work"
+            type="text"
+            value=""
+            onChange=""
+          />
+          <CustomFormComp name="Duration" type="text" value="" onChange="" />
+          <CustomFormComp name="Stipend" type="text" value="" onChange="" />
+          <CustomTextBox
+            name="About Role of Hiring"
+            placeholder=" "
+            value=""
+            onChange=""
+          />
 
           <div className="flex flex-col mt-[50px]">
             <div className="text-[24px] leading-6 font-agrandir pb-3 cursor-pointer">
@@ -94,7 +104,12 @@ export default function CompanyPost() {
               </button>
             </div>
           </div>
-          <CustomFormComp name="Number of Opening" type="number" />
+          <CustomFormComp
+            name="Number of Opening"
+            type="number"
+            value=""
+            onChange=""
+          />
           <div className="flex justify-center items-center">
             <button className="bg-[#7D088F] rounded-[20px] px-4 py-4 text-[28px] font-bold my-[40px] w-fit">
               Post
