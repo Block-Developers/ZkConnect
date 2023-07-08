@@ -23,7 +23,7 @@ export default function AppliedForCompanyApplications() {
                     <thead className="border-b font-medium dark:border-neutral-500">
                       <tr>
                         <th scope="col" className="md:px-6 md:py-4 py-2 px-3">
-                          Company's Name
+                          Company&apos;s Name
                         </th>
                         <th scope="col" className="md:px-6 md:py-4 py-2 px-3">
                           Applied role{" "}

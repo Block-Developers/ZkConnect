@@ -6,13 +6,13 @@ import Link from "next/link";
 import axios from "axios";
 import { TfiUser } from "react-icons/tfi";
 import { FaBullhorn } from "react-icons/fa";
-import CustomNav from "../components/CustomNav";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
   getLocalStorageWithExpiry,
   setLocalStorageWithExpiry,
 } from "../components/store";
+import CustomNav from "../components/customNav";
 
 function Signup() {
   const [username, setUsername] = useState("");

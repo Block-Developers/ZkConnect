@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import Logo from "../Images/logo.png";
 import Image from "next/image";
 import Link from "next/link";
-import CustomNav from "../components/CustomNav";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -11,6 +10,7 @@ import {
   getLocalStorageWithExpiry,
   setLocalStorageWithExpiry,
 } from "../components/store";
+import CustomNav from "../components/customNav";
 
 function Login() {
   const [username, setUsername] = useState("");
