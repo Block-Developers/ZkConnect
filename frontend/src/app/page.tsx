@@ -5,7 +5,7 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import User from "../Assets/users.png";
-import Company from "../Assets/Company.png";
+import Company from "../Assets/company.png";
 import { useState } from "react";
 
 export default function Home() {
