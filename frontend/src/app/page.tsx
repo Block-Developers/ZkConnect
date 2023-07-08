@@ -10,27 +10,18 @@ import { useState } from "react";
 
 export default function Home() {
   const [showImage, setShowImage] = useState(false);
-  const [buttonStyle, setButtonStyle] = useState({
-    backgroundColor: "black",
-  });
-  const [buttonStyle2, setButtonStyle2] = useState({
-    backgroundColor: "black",
-  });
+  const buttonStyle = {
+    backgroundColor: !showImage ? "#9000A7" : "black",
+  };
+  const buttonStyle2 = {
+    backgroundColor: showImage ? "#9000A7" : "black",
+  };
   const handleButtonClick = () => {
-    setShowImage(true);
-    setButtonStyle({
-      ...buttonStyle,
-      backgroundColor: showImage ? "#9000A7" : "black",
-    });
+    setShowImage(false);
   };
   const handleButtonClick2 = () => {
-    setShowImage(false);
-    setButtonStyle2({
-      ...buttonStyle2,
-      backgroundColor: !showImage ? "#9000A7" : "black",
-    });
+    setShowImage(true);
   };
-
   return (
     <main>
       <Head>
@@ -111,12 +102,11 @@ export default function Home() {
           </div>
           <div className="flex justify-center pb-10 text-white text-center font-extrabold text-lg ">
             <button
-              className="border border-white  p-2 rounded-l-md"
+              className="border border-white p-2 rounded-l-md"
               style={buttonStyle}
               onClick={handleButtonClick}
             >
-              {" "}
-              As User{" "}
+              As User
             </button>
             <button
               className="border border-white p-2 rounded-r-md"
@@ -126,7 +116,7 @@ export default function Home() {
               As Company
             </button>
           </div>
-          {showImage ? (
+          {!showImage ? (
             <Image src={User} alt="" />
           ) : (
             <Image src={Company} alt="" />
