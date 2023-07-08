@@ -38,8 +38,13 @@ export default function JobsForUsers() {
                 Filter
               </h2>
             </div>
-            <CustomFormComp name="Profile" type="text" />
-            <CustomFormComp name="Keyword Search" type="text" />
+            <CustomFormComp name="Profile" type="text" value="" onChange="" />
+            <CustomFormComp
+              name="Keyword Search"
+              type="text"
+              value=""
+              onChange=""
+            />
             <div className="flex flex-col gap-6 mt-8" suppressHydrationWarning>
               <label className="text-white  text-[25px] font-agrandir leading-6">
                 <input
