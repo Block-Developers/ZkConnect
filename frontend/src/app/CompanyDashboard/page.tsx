@@ -1,11 +1,11 @@
-import MainNav from "../components/mainNav";
+import CustomNav from "../components/customNav";
 import { FaHome, FaRunning, FaFile } from "react-icons/fa";
 
 export default function CompanyDashboard() {
   return (
     <section className="hero3 py-[60px] pb-[100px]">
       <div>
-        <MainNav />
+        <CustomNav />
       </div>
       <div className="h-screen mt-[100px]">
         <div className="flex justify-center items-center text-white mid:text-[50px] text-[30px]  px-4 font-agrandir text-center">
