@@ -44,19 +44,25 @@ export default function Home() {
             candidates and conduct secure, skill-based assessments for seamless
             hiring.
           </div>
-          <button className="py-4 px-6 border bg-[#FFA800] rounded-[1000px] text-[14px] font-agrandir font-bold text-black uppercase mt-[20px]  flex justify-start">
-            Crack now
-          </button>
+          <Link href="/Login">
+            <button className="py-4 px-6 border bg-[#FFA800] rounded-[1000px] text-[14px] font-agrandir font-bold text-black uppercase mt-[20px]  flex justify-start">
+              Crack now
+            </button>
+          </Link>
         </div>
       </div>
 
       <div className="hero2 md:px-40">
+        <a href="#about" id="about">
+          {" "}
+        </a>
         <div
           id="features"
           className="font-extrabold text-center text-white pb-5 text-2xl md:pt-5"
         >
           Explore 10 Jobs
         </div>
+
         <div className="px-3 flex flex-col space-y-6 ">
           <Jobslist
             id="1"
@@ -100,6 +106,9 @@ export default function Home() {
           >
             How it Works?
           </div>
+          <a href="#works" id="works">
+            {" "}
+          </a>
           <div className="flex justify-center pb-10 text-white text-center font-extrabold text-lg ">
             <button
               className="border border-white p-2 rounded-l-md"
@@ -125,6 +134,9 @@ export default function Home() {
             id="features"
             className="font-extrabold text-center text-white pb-5 text-2xl pt-20"
           >
+            <a href="#contact" id="contact">
+              {" "}
+            </a>
             Let&apos;s gooo!
           </div>
         </div>

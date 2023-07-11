@@ -8,9 +8,9 @@ import Link from "next/link";
 
 const navigation = [
   { name: "Home", href: "#" },
-  { name: "About", href: "#" },
-  { name: "How it works", href: "#" },
-  { name: "Contact Us", href: "#" },
+  { name: "About", href: "#about" },
+  { name: "How it works", href: "#works" },
+  { name: "Contact Us", href: "#contact" },
 ];
 
 function Navbar() {
@@ -51,7 +51,7 @@ function Navbar() {
               </Link>
             ))}
             <Link
-              href="#"
+              href="/Login"
               className="text-sm font-semibold leading-6 text-gray-200"
             >
               <button className="border  rounded-xl	hover:bg-[#640074] border-white p-3 ">
@@ -102,7 +102,7 @@ function Navbar() {
                 </div>
                 <div className="py-6">
                   <Link
-                    href="#"
+                    href="/Login"
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-100 hover:bg-gray-800"
                   >
                     <button className="border  rounded-xl	 border-white p-3 ">
