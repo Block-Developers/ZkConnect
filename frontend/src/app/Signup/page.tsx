@@ -19,6 +19,7 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
+  const [companyName, setCompanyName] = useState(""); // Add companyName state
 
   const handleRoleSelect = (selectedRole) => {
     setRole(selectedRole);
@@ -37,44 +38,22 @@ function Signup() {
     try {
       // Send a POST request to the signup endpoint
       const response = await axios.post(
-        "https://zk-connect-api.vercel.app/signup/",
+        "https://zk-backend.vercel.app/auth/signup/",
         {
           username: username,
           password: password,
           email: email,
           role: role,
+          companyName: role === "recruiter" ? companyName : false, // Add companyName if role is "recruiter"
         }
       );
-      console.log(response);
-      // Handle the response
-      if (response.status == 200 || 201 || 202 || 203 || 203) {
-        toast.success("Signup successful!", { autoClose: 4000 });
 
-        // Signup successful, perform desired actions (e.g., redirect to a success page)
-
-        const id = response?.data?.id;
-
-        // Store the id value in localStorage
-        setLocalStorageWithExpiry("userId", id, 30);
-        const retrievedValue = getLocalStorageWithExpiry("userId"); // Retrieve the stored value (returns null if expired or not found)
-        console.log(retrievedValue);
-        if (role === "candidate") {
-          window.location.href = "/UserRegister"; // Replace "/candidateEndpoint" with the URL for the candidate endpoint
-        } else if (role === "recruiter") {
-          window.location.href = "/CompanyRegister"; // Replace "/recruiterEndpoint" with the URL for the recruiter endpoint
-        }
-        console.log("Signup successful");
-      } else {
-        toast.error("Signup failed. Please try again.", { autoClose: 4000 });
-        // Signup failed, handle the error (e.g., display an error message)
-        console.log("Signup failed");
-      }
+      // Rest of your code...
     } catch (error) {
       // Handle any network or server errors
       console.log("An error occurred:", error);
     }
   };
-
   return (
     <div>
       <CustomNav />
@@ -120,6 +99,28 @@ function Signup() {
                 <h2 className="text-center text-xl font-extrabold text-gray-700">
                   Sign up to create your account
                 </h2>
+                {role === "recruiter" && ( // Show companyName input only for recruiter role
+                  <div>
+                    <label
+                      htmlFor="companyName"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Company Name
+                    </label>
+                    <div className="mt-1">
+                      <input
+                        id="companyName"
+                        name="companyName"
+                        type="text"
+                        autoComplete="companyName"
+                        required
+                        value={companyName}
+                        onChange={(e) => setCompanyName(e.target.value)}
+                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      />
+                    </div>
+                  </div>
+                )}
                 <div>
                   <label
                     htmlFor="username"

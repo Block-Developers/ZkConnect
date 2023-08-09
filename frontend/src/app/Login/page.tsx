@@ -21,7 +21,7 @@ function Login() {
 
     try {
       const response = await axios.post(
-        "https://zk-connect-api.vercel.app/login/",
+        "https://zk-backend.vercel.app/auth/login/",
         {
           username: username,
           password: password,
@@ -32,20 +32,29 @@ function Login() {
       if (response.status === 200 || 201 || 202 || 203 || 204) {
         // Successful login
         toast.success("Login successful!", { autoClose: 4000 });
-        const id = response?.data?.id;
+        const id = response?.data;
 
         // Store the id value in localStorage
         setLocalStorageWithExpiry("userId", id, 30);
-        const retrievedValue = getLocalStorageWithExpiry("userId"); // Retrieve the stored value (returns null if expired or not found)
+        const retrievedValue = getLocalStorageWithExpiry("userId");
         console.log(retrievedValue);
-        // const res = await axios.post(
-        //   "https://zk-connect-api.vercel.app/get_profile_data",
-        //   {
-        //     id: id,
-        //   }
-        // );
-        // console.log(res?.data);
-        window.location.href = "/Dashboard";
+        if (
+          retrievedValue.user.userregister.length === 0 &&
+          retrievedValue.user.companyregister.length === 0
+        ) {
+          // Both arrays are empty, redirect to the appropriate registration page
+          if (retrievedValue.user?.role === "user") {
+            window.location.href = "/UserRegister";
+          } else {
+            window.location.href = "/CompanyRegister";
+          }
+        } else if (
+          retrievedValue.user.userregister.length ||
+          retrievedValue.user.companyregister.length > 0
+        ) {
+          // Redirect to the UserDashboard if the userregister array has elements
+          window.location.href = "/UserDashboard";
+        }
       } else {
         // Error handling for unsuccessful login
         toast.error("Login failed. Please try again.", { autoClose: 4000 });

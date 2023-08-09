@@ -5,6 +5,10 @@ import CustomFileUpload from "../components/CustomFileUpload";
 import CustomFormComp from "../components/CustomFormComp";
 import CustomTextBox from "../components/CustomTextBox";
 import CustomNav from "../components/customNav";
+import {
+  getLocalStorageWithExpiry,
+  setLocalStorageWithExpiry,
+} from "../components/store";
 
 export default function CompanyLogin() {
   const [formData, setFormData] = useState({
@@ -16,7 +20,7 @@ export default function CompanyLogin() {
     Employees: "0",
     StartingYear: "0",
     CompanyProfile: "",
-    Logo: null,
+    Logo: "",
   });
 
   const handleChange = (event) => {
@@ -27,21 +31,54 @@ export default function CompanyLogin() {
     }));
   };
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
+  const handleFileChange = (file) => {
+    console.log("file", file);
     setFormData((prevFormData) => ({
       ...prevFormData,
-      logo: file,
+      Logo: file,
     }));
   };
 
   const handleSubmit = async () => {
     try {
+      const formDataToSend = new FormData();
+      formDataToSend.append("CompanyName", formData.CompanyName);
+      formDataToSend.append("CompanyEmail", formData.CompanyEmail);
+      formDataToSend.append("CompanyNumber", formData.CompanyNumber);
+      formDataToSend.append("CompanyLinkedIn", formData.CompanyLinkedIn);
+      formDataToSend.append("CompanyLocation", formData.CompanyLocation);
+      formDataToSend.append("Employees", formData.Employees);
+      formDataToSend.append("StartingYear", formData.StartingYear);
+      formDataToSend.append("CompanyProfile", formData.CompanyProfile);
+      formDataToSend.append("Logo", formData.Logo);
+
       const response = await axios.post(
         "https://zk-connect-api.vercel.app/Rec_Profile_data/",
-        formData
+        formDataToSend
       );
+
       console.log("Data sent successfully:", response.data);
+      if (
+        response.status === 200 ||
+        response.status === 201 ||
+        response.status === 202 ||
+        response.status === 203 ||
+        response.status === 204
+      ) {
+        // Successful login
+        const id = response?.data?.id;
+
+        // Store the id value in localStorage
+        setLocalStorageWithExpiry("userId", id, 30);
+        const retrievedValue = getLocalStorageWithExpiry("userId"); // Retrieve the stored value (returns null if expired or not found)
+        console.log(retrievedValue);
+
+        window.location.href = "/UserDashboard";
+      } else {
+        // Error handling for unsuccessful login
+        // Handle the response as needed
+        console.log("Missing Values");
+      }
       // Reset form after successful submission if needed
       setFormData({
         CompanyName: "",
@@ -52,7 +89,7 @@ export default function CompanyLogin() {
         Employees: "0",
         StartingYear: "0",
         CompanyProfile: "",
-        Logo: null,
+        Logo: "",
       });
     } catch (error) {
       console.error("Error sending data:", error);
@@ -116,6 +153,8 @@ export default function CompanyLogin() {
           value={formData.CompanyProfile}
           onChange={handleChange}
         />
+
+        {/* Rest of the CustomFormComp components */}
         <CustomFileUpload
           name="Provide your logo"
           type="file"

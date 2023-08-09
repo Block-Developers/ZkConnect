@@ -6,7 +6,10 @@ import CustomTextBox from "../components/CustomTextBox";
 import CustomNav from "../components/customNav";
 import CustomFileUpload from "../components/CustomFileUpload";
 import axios from "axios";
-import { getLocalStorageWithExpiry } from "../components/store";
+import {
+  getLocalStorageWithExpiry,
+  setLocalStorageWithExpiry,
+} from "../components/store";
 
 export default function Starting(): JSX.Element {
   const [selectedButton, setSelectedButton] = useState<number | null>(null);
@@ -39,30 +42,52 @@ export default function Starting(): JSX.Element {
       setSelectedSkills([...selectedSkills, buttonId]);
     }
   };
+
   const handleFormSubmit = async (): Promise<void> => {
     const formData = new FormData();
     formData.append("file", resume);
     const id = getLocalStorageWithExpiry("userId");
-    console.log(id, "id");
+    console.log(id.token, "id");
+    const token = id.token;
     // Send the POST request
 
     const response = await axios.post(
-      "https://zk-connect-api.vercel.app/profile/",
+      "https://zk-backend.vercel.app/auth/registerUser",
       {
-        userid: id,
-        first_name: firstName,
-        last_name: lastName,
+        firstName: firstName,
+        lastName: lastName,
         email: email,
         location: location,
-        contact_number: contactNumber,
-        profile_bio: profileBio,
-        resume_image: resume,
-        file_name: resume.name,
-        usr_type: selectedButton,
-        skills: selectedSkills,
+        contactNumber: contactNumber,
+        profileBio: profileBio,
+        resume: resume.name, // Assuming resume is a File object, use resume.name as the string value
+        selectedButton: selectedButton,
+        selectedSkills: selectedSkills.join(", "),
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
       }
     );
     console.log("Response:", response.data);
+    if (response.status === 200 || 201 || 202 || 203 || 204) {
+      // Successful login
+
+      const id = response?.data?.id;
+
+      // Store the id value in localStorage
+      setLocalStorageWithExpiry("userId", id, 30);
+      const retrievedValue = getLocalStorageWithExpiry("userId"); // Retrieve the stored value (returns null if expired or not found)
+      console.log(retrievedValue);
+
+      window.location.href = "/UserDashboard";
+    } else {
+      // Error handling for unsuccessful login
+
+      // Handle the response as needed
+      console.log("Missing Values");
+    }
   };
 
   return (
