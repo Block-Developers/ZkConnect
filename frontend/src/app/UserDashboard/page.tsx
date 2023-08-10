@@ -10,6 +10,7 @@ export default function UserDashboard() {
   useEffect(() => {
     // Perform localStorage action
     const retrievedValue = getLocalStorageWithExpiry("userId");
+    console.log(retrievedValue);
     setUserdata(retrievedValue.user);
   }, []);
 

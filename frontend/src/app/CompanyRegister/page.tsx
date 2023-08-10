@@ -9,11 +9,11 @@ import {
   getLocalStorageWithExpiry,
   setLocalStorageWithExpiry,
 } from "../components/store";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function CompanyLogin() {
   const [formData, setFormData] = useState({
-    CompanyName: "",
-    CompanyEmail: "",
     CompanyNumber: "",
     CompanyLinkedIn: "",
     CompanyLocation: "",
@@ -40,10 +40,11 @@ export default function CompanyLogin() {
   };
 
   const handleSubmit = async () => {
+    const id = getLocalStorageWithExpiry("userId");
+    console.log(id.token, "id");
+    const token = id.token;
     try {
       const formDataToSend = new FormData();
-      formDataToSend.append("CompanyName", formData.CompanyName);
-      formDataToSend.append("CompanyEmail", formData.CompanyEmail);
       formDataToSend.append("CompanyNumber", formData.CompanyNumber);
       formDataToSend.append("CompanyLinkedIn", formData.CompanyLinkedIn);
       formDataToSend.append("CompanyLocation", formData.CompanyLocation);
@@ -53,8 +54,13 @@ export default function CompanyLogin() {
       formDataToSend.append("Logo", formData.Logo);
 
       const response = await axios.post(
-        "https://zk-connect-api.vercel.app/Rec_Profile_data/",
-        formDataToSend
+        "https://zk-backend.vercel.app/auth/registercompany",
+        formDataToSend,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
       );
 
       console.log("Data sent successfully:", response.data);
@@ -67,13 +73,13 @@ export default function CompanyLogin() {
       ) {
         // Successful login
         const id = response?.data?.id;
-
+        toast.success("Company Registered Successfully!", { autoClose: 4000 });
         // Store the id value in localStorage
         setLocalStorageWithExpiry("userId", id, 30);
         const retrievedValue = getLocalStorageWithExpiry("userId"); // Retrieve the stored value (returns null if expired or not found)
         console.log(retrievedValue);
 
-        window.location.href = "/UserDashboard";
+        window.location.href = "/Login";
       } else {
         // Error handling for unsuccessful login
         // Handle the response as needed
@@ -81,8 +87,6 @@ export default function CompanyLogin() {
       }
       // Reset form after successful submission if needed
       setFormData({
-        CompanyName: "",
-        CompanyEmail: "",
         CompanyNumber: "",
         CompanyLinkedIn: "",
         CompanyLocation: "",
@@ -105,18 +109,6 @@ export default function CompanyLogin() {
         Hi there!👋 <br /> Let&apos;s get started
       </center>
       <div className="flex flex-col mx-6 md:m-[150px]  md:mt-[20px] border px-6 md:p-[100px] border-white rounded-2xl text-white md:text-[24px] leading-6 font-agrandir">
-        <CustomFormComp
-          name="Company Name"
-          type="text"
-          value={formData.CompanyName}
-          onChange={handleChange}
-        />
-        <CustomFormComp
-          name="Company Email"
-          type="email"
-          value={formData.CompanyEmail}
-          onChange={handleChange}
-        />
         <CustomFormComp
           name="Company Number"
           type="number"
@@ -167,8 +159,8 @@ export default function CompanyLogin() {
         >
           Continue ➡️
         </div>
+        <ToastContainer />
       </div>
-      <div className="invisible">dfdf</div>
     </div>
   );
 }

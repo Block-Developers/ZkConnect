@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  role: { type: String, enum: ["user", "admin", "recruiter"], default: "user" },
+  role: { type: String, enum: ["user", "company"], default: "user" },
   isCompany: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
   lastLogin: { type: Date },
@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
     validate: {
       validator: function (value) {
         // Only require companyName if the role is "company"
-        if (this.role === "recruiter") {
+        if (this.role === "company") {
           return value && value.trim().length > 0;
         }
         return true; // Return true for non-company roles
@@ -24,6 +24,10 @@ const userSchema = new mongoose.Schema({
       message: "Company name is required for company role.",
     },
   },
+  jobApplications: [
+    { type: mongoose.Schema.Types.ObjectId, ref: "JobApplication" },
+  ],
+
   userregister: [
     {
       firstName: { type: String },
@@ -43,7 +47,7 @@ const userSchema = new mongoose.Schema({
         validate: {
           validator: function (value) {
             // Validate CompanyNumber based on role
-            if (this.role === "recruiter") {
+            if (this.role === "company") {
               return value && value.trim().length > 0;
             }
             return true; // Return true for non-company roles
@@ -56,7 +60,7 @@ const userSchema = new mongoose.Schema({
         validate: {
           validator: function (value) {
             // Validate CompanyNumber based on role
-            if (this.role === "recruiter") {
+            if (this.role === "company") {
               return value && value.trim().length > 0;
             }
             return true; // Return true for non-company roles
@@ -69,7 +73,7 @@ const userSchema = new mongoose.Schema({
         validate: {
           validator: function (value) {
             // Validate CompanyNumber based on role
-            if (this.role === "recruiter") {
+            if (this.role === "company") {
               return value && value.trim().length > 0;
             }
             return true; // Return true for non-company roles
@@ -82,7 +86,7 @@ const userSchema = new mongoose.Schema({
         validate: {
           validator: function (value) {
             // Validate CompanyNumber based on role
-            if (this.role === "recruiter") {
+            if (this.role === "company") {
               return value && value.trim().length > 0;
             }
             return true; // Return true for non-company roles
@@ -95,7 +99,7 @@ const userSchema = new mongoose.Schema({
         validate: {
           validator: function (value) {
             // Validate CompanyNumber based on role
-            if (this.role === "recruiter") {
+            if (this.role === "company") {
               return value && value.trim().length > 0;
             }
             return true; // Return true for non-company roles
@@ -108,7 +112,7 @@ const userSchema = new mongoose.Schema({
         validate: {
           validator: function (value) {
             // Validate CompanyNumber based on role
-            if (this.role === "recruiter") {
+            if (this.role === "company") {
               return value && value.trim().length > 0;
             }
             return true; // Return true for non-company roles
@@ -121,7 +125,7 @@ const userSchema = new mongoose.Schema({
         validate: {
           validator: function (value) {
             // Validate CompanyNumber based on role
-            if (this.role === "recruiter") {
+            if (this.role === "company") {
               return value && value.trim().length > 0;
             }
             return true; // Return true for non-company roles

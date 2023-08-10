@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 var cors = require("cors");
+const jobPostRoutes = require("./routes/jobRoutes"); // Import job post routes
+const jobApplicationRoutes = require("./routes/jobApplication");
 
 const app = express();
 app.use(cors()); // Use this after the variable declaration
@@ -27,10 +29,9 @@ app.use(express.json());
 const authRoutes = require("./routes/auth");
 app.use("/auth", authRoutes);
 
-const jobRoutes = require("./routes/jobRoutes");
+app.use("/jobPosts", jobPostRoutes);
 
-// app.use("/postjob", companyPostRoutes);
-app.use("/job", jobRoutes);
+app.use("/jobApplications", jobApplicationRoutes);
 
 app.get("/", (req, res) => {
   res.json({

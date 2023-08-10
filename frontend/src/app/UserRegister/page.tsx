@@ -10,6 +10,8 @@ import {
   getLocalStorageWithExpiry,
   setLocalStorageWithExpiry,
 } from "../components/store";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Starting(): JSX.Element {
   const [selectedButton, setSelectedButton] = useState<number | null>(null);
@@ -75,13 +77,13 @@ export default function Starting(): JSX.Element {
       // Successful login
 
       const id = response?.data?.id;
-
+      toast.success("User Registered Successfully!", { autoClose: 4000 });
       // Store the id value in localStorage
       setLocalStorageWithExpiry("userId", id, 30);
       const retrievedValue = getLocalStorageWithExpiry("userId"); // Retrieve the stored value (returns null if expired or not found)
       console.log(retrievedValue);
 
-      window.location.href = "/UserDashboard";
+      window.location.href = "/Login";
     } else {
       // Error handling for unsuccessful login
 
@@ -258,9 +260,9 @@ export default function Starting(): JSX.Element {
           >
             Continue ➡️
           </button>
+          <ToastContainer />
         </div>
       </div>
-      <div className="invisible">dfdf</div>
     </div>
   );
 }

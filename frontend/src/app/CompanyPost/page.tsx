@@ -1,6 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import MainNav from "../components/mainNav";
+import {
+  getLocalStorageWithExpiry,
+  setLocalStorageWithExpiry,
+} from "../components/store";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SkillButton = ({ skill, selected, onClick }) => (
   <button
@@ -47,6 +54,44 @@ const CompanyPost = () => {
       );
     } else {
       setSelectedSkills([...selectedSkills, skill]);
+    }
+  };
+
+  const handleFormSubmit = async (): Promise<void> => {
+    const id = getLocalStorageWithExpiry("userId");
+    console.log(id.token, "id");
+    const _companyid = id?.user?.companyregister?._id;
+
+    // Send the POST request
+
+    const response = await axios.post(
+      "https://zk-backend.vercel.app/job/create",
+      {
+        roleName: roleName,
+        modeOfWork: modeOfWork,
+        duration: duration,
+        selectedSkills: selectedSkills,
+        stipendValue: stipendValue,
+        aboutRole: aboutRole,
+        numberOfOpening: numberOfOpening,
+        companyId: _companyid,
+      }
+    );
+    console.log("Response:", response.data);
+    if (response.status === 200 || 201 || 202 || 203 || 204) {
+      // Successful login
+
+      const id = response?.data?.id;
+      toast.success("Job Created Successfully!", { autoClose: 4000 });
+      // Store the id value in localStorage
+      setLocalStorageWithExpiry("userId", id, 30);
+      const retrievedValue = getLocalStorageWithExpiry("userId"); // Retrieve the stored value (returns null if expired or not found)
+      console.log(retrievedValue);
+    } else {
+      // Error handling for unsuccessful login
+
+      // Handle the response as needed
+      console.log("Missing Values");
     }
   };
 
@@ -109,9 +154,13 @@ const CompanyPost = () => {
           />
 
           <div className="flex justify-center items-center">
-            <button className="bg-[#7D088F] rounded-[20px] px-4 py-4 text-[28px] font-bold my-[40px] w-fit">
+            <button
+              onClick={handleFormSubmit}
+              className="bg-[#7D088F] rounded-[20px] px-4 py-4 text-[28px] font-bold my-[40px] w-fit"
+            >
               Post
             </button>
+            <ToastContainer />
           </div>
         </div>
       </div>

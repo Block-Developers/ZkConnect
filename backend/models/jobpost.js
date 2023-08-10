@@ -9,6 +9,7 @@ const jobPostSchema = new mongoose.Schema({
   aboutRole: String,
   numberOfOpening: String,
   company: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  applicants: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 });
 
 const JobPost = mongoose.model("JobPost", jobPostSchema);
