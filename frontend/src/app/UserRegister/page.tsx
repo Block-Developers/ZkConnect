@@ -51,7 +51,6 @@ export default function Starting(): JSX.Element {
     const id = getLocalStorageWithExpiry("userId");
     console.log(id.token, "id");
     const token = id.token;
-    // Send the POST request
 
     const response = await axios.post(
       "https://zk-backend.vercel.app/auth/registerUser",
@@ -62,7 +61,7 @@ export default function Starting(): JSX.Element {
         location: location,
         contactNumber: contactNumber,
         profileBio: profileBio,
-        resume: resume.name, // Assuming resume is a File object, use resume.name as the string value
+        resume: resume.name, 
         selectedButton: selectedButton,
         selectedSkills: selectedSkills.join(", "),
       },
