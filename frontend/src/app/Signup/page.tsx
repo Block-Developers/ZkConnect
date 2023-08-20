@@ -106,7 +106,7 @@ function Signup() {
                 <h2 className="text-center text-xl font-extrabold text-gray-700">
                   Sign up to create your account
                 </h2>
-                {role === "recruiter" && ( // Show companyName input only for recruiter role
+                {role === "company" && ( // Show companyName input only for recruiter role
                   <div>
                     <label
                       htmlFor="companyName"
