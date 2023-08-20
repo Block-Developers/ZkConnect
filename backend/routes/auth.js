@@ -202,6 +202,71 @@ router.get("/protected", (req, res) => {
   });
 });
 
+router.post("/registerotp", async (req, res) => {
+  try {
+    // ... user registration logic ...
+
+    // Generate and store OTP
+    const otp = randomstring.generate({
+      length: 6,
+      charset: "numeric",
+    });
+
+    // Send OTP via email
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "your_email@gmail.com", // Your Gmail email address
+        pass: "your_password", // Your Gmail password or app password
+      },
+    });
+
+    const mailOptions = {
+      from: "your_email@gmail.com",
+      to: user.email,
+      subject: "OTP for Account Verification",
+      text: `Your OTP for account verification is: ${otp}`,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    // Store OTP in user document
+    user.registrationOTP = otp;
+    await user.save();
+
+    res
+      .status(200)
+      .json({ message: "Registration successful. OTP sent to email." });
+  } catch (error) {
+    res.status(500).json({ error: "An error occurred." });
+  }
+});
+
+router.post("/verify", async (req, res) => {
+  try {
+    const { email, otp } = req.body;
+
+    // Find user by email
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({ message: "User not found." });
+    }
+
+    if (user.registrationOTP !== otp) {
+      return res.status(400).json({ message: "Invalid OTP." });
+    }
+
+    // Update isVerified status
+    user.isVerified = true;
+    await user.save();
+
+    res.status(200).json({ message: "Account verified successfully." });
+  } catch (error) {
+    res.status(500).json({ error: "An error occurred." });
+  }
+});
+
 const {
   getUserProfile,
   updateUserProfile,
