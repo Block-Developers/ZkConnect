@@ -64,6 +64,7 @@ function Login() {
       }
     } catch (error) {
       // Error handling for network or fetch-related issues
+      toast.error("Username or password is invalid. Please try again.", { autoClose: 4000 });
       console.log(error);
     }
   };

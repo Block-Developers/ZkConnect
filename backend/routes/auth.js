@@ -202,11 +202,16 @@ router.get("/protected", (req, res) => {
   });
 });
 
-router.post("/registerotp", async (req, res) => {
+router.post("/registerotp", verifyToken, async (req, res) => {
   try {
-    // ... user registration logic ...
+    // Find the user based on the token
+    const user = await User.findById(req.userId);
 
-    // Generate and store OTP
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Generate OTP
     const otp = randomstring.generate({
       length: 6,
       charset: "numeric",
@@ -216,16 +221,16 @@ router.post("/registerotp", async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "your_email@gmail.com", // Your Gmail email address
-        pass: "your_password", // Your Gmail password or app password
+        user: "zkconnectt@gmail.com", // Your Gmail email address
+        pass: "bndbswpvujhzthge", // Your Gmail password or app password
       },
     });
 
     const mailOptions = {
-      from: "your_email@gmail.com",
+      from: "zkconnectt@gmail.com",
       to: user.email,
-      subject: "OTP for Account Verification",
-      text: `Your OTP for account verification is: ${otp}`,
+      subject: "OTP for ZKConnect Account Verification",
+      text: `Hi there!\n\nThanks for using ZKConnect. Your OTP for account verification is: ${otp}\n\nWe're excited to have you on board and look forward to your valuable registration.\n\nBest regards,\nThe ZKConnect Team`,
     };
 
     await transporter.sendMail(mailOptions);
@@ -238,20 +243,20 @@ router.post("/registerotp", async (req, res) => {
       .status(200)
       .json({ message: "Registration successful. OTP sent to email." });
   } catch (error) {
+    console.error("Error in /registerotp:", error);
     res.status(500).json({ error: "An error occurred." });
   }
 });
 
-router.post("/verify", async (req, res) => {
+router.post("/verify", verifyToken, async (req, res) => {
   try {
-    const { email, otp } = req.body;
-
     // Find user by email
-    const user = await User.findOne({ email });
-
+    const user = await User.findById(req.userId);
     if (!user) {
-      return res.status(400).json({ message: "User not found." });
+      return res.status(404).json({ message: "User not found" });
     }
+
+    const { otp } = req.body;
 
     if (user.registrationOTP !== otp) {
       return res.status(400).json({ message: "Invalid OTP." });

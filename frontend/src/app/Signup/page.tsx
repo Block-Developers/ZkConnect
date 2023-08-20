@@ -48,6 +48,13 @@ function Signup() {
         }
       );
 
+      if (response.status === 200 || 201 || 202 || 203 || 204) {
+        // Successful login
+        toast.success("Signup successful!", { autoClose: 4000 });
+        window.location.href = "/Login";
+      } else {
+        toast.error("Signup Failed!", { autoClose: 4000 });
+      }
       // Rest of your code...
     } catch (error) {
       // Handle any network or server errors
