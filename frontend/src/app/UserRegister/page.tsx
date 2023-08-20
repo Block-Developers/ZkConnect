@@ -53,8 +53,8 @@ export default function Starting(): JSX.Element {
       // If no token, redirect to the login page
       router.push("/Login");
     } else if (
-      id.user.userregister.length === 0 &&
-      id.user.companyregister.length === 0
+      id.user.userregister.length !== 0 &&
+      id.user.companyregister.length !== 0
     ) {
       router.push("/Login");
     } else {

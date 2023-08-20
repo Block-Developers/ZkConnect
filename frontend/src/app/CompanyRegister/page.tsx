@@ -39,10 +39,12 @@ export default function CompanyLogin() {
     if (!id || !id.token) {
       // If no token, redirect to the login page
       router.push("/Login");
-    } else if(id.user.userregister.length === 0 &&
-    id.user.companyregister.length === 0){
+    } else if (
+      id.user.userregister.length !== 0 &&
+      id.user.companyregister.length !== 0
+    ) {
       router.push("/Login");
-    }else {
+    } else {
       setLoading(false);
     }
   }, []);
