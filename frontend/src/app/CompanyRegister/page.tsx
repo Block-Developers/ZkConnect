@@ -85,14 +85,10 @@ export default function CompanyLogin() {
         response.status === 204
       ) {
         // Successful login
-        const id = response?.data?.id;
-        toast.success("Company Registered Successfully!", { autoClose: 4000 });
-        // Store the id value in localStorage
-        setLocalStorageWithExpiry("userId", id, 30);
-        const retrievedValue = getLocalStorageWithExpiry("userId"); // Retrieve the stored value (returns null if expired or not found)
-        console.log(retrievedValue);
 
-        window.location.href = "/Login";
+        toast.success("Company Registered Successfully!", { autoClose: 4000 });
+
+        window.location.href = "/CompanyDashboard";
       } else {
         // Error handling for unsuccessful login
         // Handle the response as needed
@@ -126,7 +122,7 @@ export default function CompanyLogin() {
             <center className="mt-[80px] py-12  flex justify-center items-center text-white w-full ">
               Hi there!👋 <br /> Let&apos;s get started
             </center>
-            <div className="flex flex-col mx-6  md:mx-[150px]   md:mt-[20px] border px-6 md:p-[100px] border-white rounded-2xl text-white md:text-[24px] leading-6 font-agrandir">
+            <div className="flex flex-col mx-6  md:mx-[150px]   md:mt-[20px] border px-6 md:p-[100px] border-white rounded-2xl text-white md:text-[20px] leading-6 font-agrandir">
               <CustomFormComp
                 name="Company Number"
                 type="number"

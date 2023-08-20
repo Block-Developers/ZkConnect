@@ -38,22 +38,34 @@ function Login() {
         setLocalStorageWithExpiry("userId", id, 30);
         const retrievedValue = getLocalStorageWithExpiry("userId");
         console.log(retrievedValue);
+        // Assuming retrievedValue.user is the user object retrieved from localStorage
+
         if (
           retrievedValue.user.userregister.length === 0 &&
           retrievedValue.user.companyregister.length === 0
         ) {
-          // Both arrays are empty, redirect to the appropriate registration page
-          if (retrievedValue.user?.role === "user") {
-            window.location.href = "/UserRegister";
+          // Both arrays are empty, check for verification status and redirect accordingly
+          if (retrievedValue.user.isVerified == false) {
+            // User is not verified, redirect to OTPVerification
+            window.location.href = "/OTPVerification";
           } else {
-            window.location.href = "/CompanyRegister";
+            // User is verified, redirect based on the role
+            if (retrievedValue.user.role === "user") {
+              window.location.href = "/UserRegister";
+            } else {
+              window.location.href = "/CompanyRegister";
+            }
           }
         } else if (
-          retrievedValue.user.userregister.length ||
+          retrievedValue.user.userregister.length > 0 ||
           retrievedValue.user.companyregister.length > 0
         ) {
-          // Redirect to the UserDashboard if the userregister array has elements
-          window.location.href = "/UserDashboard";
+          // Redirect to the appropriate dashboard based on the role
+          if (retrievedValue.user.role === "user") {
+            window.location.href = "/UserDashboard";
+          } else {
+            window.location.href = "/CompanyDashboard";
+          }
         }
       } else {
         // Error handling for unsuccessful login
@@ -64,7 +76,9 @@ function Login() {
       }
     } catch (error) {
       // Error handling for network or fetch-related issues
-      toast.error("Username or password is invalid. Please try again.", { autoClose: 4000 });
+      toast.error("Username or password is invalid. Please try again.", {
+        autoClose: 4000,
+      });
       console.log(error);
     }
   };

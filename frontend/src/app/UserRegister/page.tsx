@@ -87,14 +87,10 @@ export default function Starting(): JSX.Element {
     if (response.status === 200 || 201 || 202 || 203 || 204) {
       // Successful login
 
-      const id = response?.data?.id;
       toast.success("User Registered Successfully!", { autoClose: 4000 });
       // Store the id value in localStorage
-      setLocalStorageWithExpiry("userId", id, 30);
-      const retrievedValue = getLocalStorageWithExpiry("userId"); // Retrieve the stored value (returns null if expired or not found)
-      console.log(retrievedValue);
 
-      window.location.href = "/Login";
+      window.location.href = "/UserDashboard";
     } else {
       // Error handling for unsuccessful login
 

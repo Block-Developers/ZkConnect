@@ -30,7 +30,7 @@ router.post("/signup", async (req, res) => {
     let userRole;
     let isCompany = false; // Set the default value for isCompany
     let companyName = false;
-
+    let isVerified = false;
     if (role === "company") {
       userRole = "company";
       isCompany = true; // Set isCompany to true for company registrations
@@ -44,6 +44,7 @@ router.post("/signup", async (req, res) => {
       role: userRole,
       isCompany: isCompany, // Set the isCompany field based on the role
       companyName: companyName,
+      isVerified: isVerified,
       email,
       username,
       password: hashedPassword,
