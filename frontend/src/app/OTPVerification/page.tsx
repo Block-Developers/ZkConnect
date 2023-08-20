@@ -28,6 +28,8 @@ function RegistrationForm() {
     if (!id || !id.token) {
       // If no token, redirect to the login page
       router.push("/Login");
+    } else if (id.user.isVerified == true) {
+      router.push("/Login");
     } else {
       setLoading(false);
     }

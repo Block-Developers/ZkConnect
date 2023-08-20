@@ -281,7 +281,7 @@ export default function Starting(): JSX.Element {
 
               <button
                 onClick={handleFormSubmit}
-                className="flex justify-center rounded-lg items-center mt-5  md:mt-[50px] cursor-pointer bg-[#DB00FF87] bg-opacity-[53%] py-5"
+                className="flex justify-center rounded-lg items-center mt-5 mb-10  md:mt-[50px] cursor-pointer bg-[#DB00FF87] bg-opacity-[53%] py-5"
               >
                 Continue ➡️
               </button>

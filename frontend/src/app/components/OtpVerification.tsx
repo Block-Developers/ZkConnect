@@ -9,7 +9,11 @@ import "react-toastify/dist/ReactToastify.css";
 
 function OTPVerification({ onComplete }) {
   const [otp, setOTP] = useState("");
-
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleVerify();
+    }
+  };
   const handleVerify = async () => {
     try {
       const id = getLocalStorageWithExpiry("userId");
@@ -36,6 +40,7 @@ function OTPVerification({ onComplete }) {
       }
     } catch (error) {
       console.error(error);
+      toast.error("OTP is not matched!", { autoClose: 4000 });
     }
   };
 
@@ -50,6 +55,7 @@ function OTPVerification({ onComplete }) {
         type="text"
         placeholder="Enter OTP"
         value={otp}
+        onKeyPress={handleKeyPress}
         onChange={(e) => setOTP(e.target.value)}
         className="appearance-none block w-full mb-5 px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
       />
