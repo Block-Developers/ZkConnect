@@ -58,7 +58,9 @@ function Signup() {
       // Rest of your code...
     } catch (error) {
       // Handle any network or server errors
-      toast.error("UserName is already taken!", { autoClose: 4000 });
+      toast.error("UserName or email ID is already taken!", {
+        autoClose: 4000,
+      });
       console.log("An error occurred:", error);
     }
   };
