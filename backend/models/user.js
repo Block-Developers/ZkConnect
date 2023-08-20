@@ -11,6 +11,8 @@ const userSchema = new mongoose.Schema({
   isCompany: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
   lastLogin: { type: Date },
+  registrationOTP: { type: String }, // Store the OTP generated during registration
+  isVerified: { type: Boolean, default: false }, // Flag to indicate if the account is verified
   companyName: {
     type: String,
     validate: {

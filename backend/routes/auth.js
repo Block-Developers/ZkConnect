@@ -4,6 +4,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const { verifyToken } = require("../middleware/auth");
+const nodemailer = require("nodemailer");
+const randomstring = require("randomstring");
 
 const router = express.Router();
 
