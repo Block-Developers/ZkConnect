@@ -44,7 +44,7 @@ function Signup() {
           password: password,
           email: email,
           role: role,
-          companyName: role === "recruiter" ? companyName : false, // Add companyName if role is "recruiter"
+          companyName: role === "company" ? companyName : false, // Add companyName if role is "recruiter"
         }
       );
 
@@ -94,7 +94,7 @@ function Signup() {
                     <FaBullhorn className="h-20 w-20 m-4" />
                     <button
                       className="mx-2 py-2 px-4 bg-indigo-600 text-white rounded-md"
-                      onClick={() => handleRoleSelect("recruiter")}
+                      onClick={() => handleRoleSelect("company")}
                     >
                       Recruiter
                     </button>
