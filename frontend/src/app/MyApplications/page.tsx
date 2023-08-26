@@ -4,29 +4,21 @@ import { FaCheckCircle, FaExclamationTriangle } from "react-icons/fa";
 import { IoMdCloudUpload } from "react-icons/io";
 import Image from "next/image";
 import { MdOutlinePending } from "react-icons/md";
-// import DashNav from "../components/DashNav";
+import DashNav from "../components/DashNav";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import dynamic from "next/dynamic";
 
 import { getLocalStorageWithExpiry } from "../components/store";
 
-const DynamicHeader = dynamic(() => import("../components/DashNav"), {
-  ssr: false,
-});
-
 function Page() {
   const [loading, setLoading] = useState(true);
   const [application, setApplications] = useState(null);
 
-  const [isClient, setIsClient] = useState(false);
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
   const [userdata, setUserdata] = useState<{ username?: string } | null>(null);
   const [token, setToken] = useState("");
   const router = useRouter(); // Initialize the router
+
   useEffect(() => {
     const retrievedValue = getLocalStorageWithExpiry("userId");
     setToken(retrievedValue.token);
@@ -40,8 +32,12 @@ function Page() {
       router.push("/Login");
     }
   }, []);
+
   useEffect(() => {
     async function fetchData() {
+      const id = getLocalStorageWithExpiry("userId");
+      console.log(id.token, "id");
+      const token = id.token;
       try {
         const response = await fetch(
           "https://zk-backend.vercel.app/jobPosts/my-applications",
@@ -62,6 +58,7 @@ function Page() {
     }
     fetchData();
   }, []);
+
   console.log(application);
   return (
     <>
@@ -72,7 +69,7 @@ function Page() {
       ) : (
         <>
           <div className="hero2">
-            <DynamicHeader />
+            <DashNav />
 
             <div className="py-44">
               <div className="flex justify-center items-center py-4  md:text-[40px] font-agrandir font-extrabold leading-6 text-white pt-[80px]">
