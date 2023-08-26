@@ -58,6 +58,20 @@ router.post("/apply", verifyToken, async (req, res) => {
     const jobPost = await JobPost.findById(req.body.jobId);
     const user = await User.findById(req.userId); // User ID from the token
 
+    if (!jobPost) {
+      return res.status(404).json({
+        success: false,
+        message: "Job post not found",
+      });
+    }
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
     // Check if the user has already applied
     const existingApplication = await JobApplication.findOne({
       jobPost: jobPost._id,
@@ -76,6 +90,7 @@ router.post("/apply", verifyToken, async (req, res) => {
       jobPost: jobPost._id,
       applicant: user._id,
     });
+
     user.jobApplications.push(jobApplication._id);
     await user.save();
     await jobApplication.save();
@@ -85,6 +100,90 @@ router.post("/apply", verifyToken, async (req, res) => {
     await jobPost.save();
 
     res.status(201).json({ success: true, message: "Applied successfully" });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "An error occurred",
+      error: error.message,
+    });
+  }
+});
+
+router.get("/:jobId/applicants-details", verifyToken, async (req, res) => {
+  try {
+    const jobId = req.params.jobId;
+
+    const jobPost = await JobPost.findById(jobId)
+      .populate({
+        path: "applicants",
+        select: "username email",
+      })
+      .exec();
+
+    if (!jobPost) {
+      return res.status(404).json({
+        success: false,
+        message: "Job post not found",
+      });
+    }
+
+    // Additional role-based logic here (e.g., check if the requester is a recruiter)
+
+    res.status(200).json({ success: true, applicants: jobPost.applicants });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "An error occurred",
+      error: error.message,
+    });
+  }
+});
+
+router.put(
+  "/select-applicant/:applicationId",
+  verifyToken,
+  async (req, res) => {
+    try {
+      const applicationId = req.params.applicationId;
+
+      const application = await JobApplication.findById(applicationId);
+
+      if (!application) {
+        return res.status(404).json({
+          success: false,
+          message: "Application not found",
+        });
+      }
+
+      // Additional role-based logic here (e.g., check if the requester is a recruiter)
+
+      application.status = "selected";
+      await application.save();
+
+      res.status(200).json({ success: true, message: "Candidate selected" });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "An error occurred",
+        error: error.message,
+      });
+    }
+  }
+);
+
+// Get the applications for the logged-in user
+router.get("/my-applications", verifyToken, async (req, res) => {
+  try {
+    const userId = req.userId;
+
+    const userApplications = await JobApplication.find({ applicant: userId })
+      .populate({
+        path: "jobPost",
+        populate: { path: "company" },
+      })
+      .exec();
+
+    res.status(200).json({ success: true, applications: userApplications });
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -116,6 +215,8 @@ router.get("/:jobId", async (req, res) => {
     });
   }
 });
+
+// Other routes...
 
 router.get("/:jobId/applicants", verifyToken, async (req, res) => {
   try {

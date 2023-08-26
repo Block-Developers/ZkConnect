@@ -5,6 +5,9 @@ import { BiSearchAlt2 } from "react-icons/bi";
 import Image from "next/image";
 import DashNav from "@/app/components/DashNav";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function ApplicationProcess({
   params,
@@ -16,10 +19,11 @@ export default function ApplicationProcess({
   const [jobDetails, setJobDetails] = useState(null);
   const [userdata, setUserdata] = useState<{ username?: string } | null>(null);
   const [loading, setLoading] = useState(true); // Initialize loading state
-
+  const [token, setToken] = useState("");
   const router = useRouter(); // Initialize the router
   useEffect(() => {
     const retrievedValue = getLocalStorageWithExpiry("userId");
+    setToken(retrievedValue?.token);
     console.log(retrievedValue);
     if (!retrievedValue?.token) {
       router.push("/Login");
@@ -30,6 +34,31 @@ export default function ApplicationProcess({
       router.push("/Login");
     }
   }, []);
+  const applynow = async (): Promise<void> => {
+    const response = await axios.post(
+      "https://zk-backend.vercel.app/jobPosts/apply",
+      {
+        jobId: id,
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    console.log("Response:", response.data);
+    if (response.status === 200 || 201 || 202 || 203 || 204) {
+      // Successful login
+
+      toast.success("Applied to the Job Successfully!", { autoClose: 4000 });
+      // Store the id value in localStorage
+    } else {
+      // Error handling for unsuccessful login
+
+      // Handle the response as needed
+      console.log("Missing Values");
+    }
+  };
 
   const name = userdata?.username;
 
@@ -158,26 +187,19 @@ export default function ApplicationProcess({
                     <p className="text-lg">{jobDetails.numberOfOpening}</p>
                   </div>
 
-                  <div className="py-5">
-                    <div className="text-xl text-white font-bold line-clamp-1">
-                      Your Resume
-                    </div>
-                    <p className="text-sm text-[#7A7A7A]">
-                      Your current resume will be submitted along with this
-                      application.{" "}
-                      <span className="text-[#0099FF]"> Edit resume</span>
-                    </p>
-                  </div>
-
                   <div
                     className="flex justify-center items-center
           "
                   >
-                    <button className="px-6 py-3 bg-[#7D088F] md:text-[30px] font-bold font-agrandir leading-6 text-white rounded-[20px]">
+                    <button
+                      onClick={applynow}
+                      className="px-6 py-3 bg-[#7D088F] md:text-[30px] font-bold font-agrandir leading-6 text-white rounded-[20px]"
+                    >
                       {" "}
                       Apply Now
                     </button>
                   </div>
+                  <ToastContainer />
                 </div>
               </div>
             )}

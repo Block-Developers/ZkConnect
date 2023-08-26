@@ -19,9 +19,9 @@ const DashNav = () => {
   useEffect(() => {
     const retrievedValue = getLocalStorageWithExpiry("userId");
     setUserdata(retrievedValue?.user);
-    if (retrievedValue.user.role == "user") {
+    if (retrievedValue?.user?.role == "user") {
       setUser("/UserDashboard");
-    } else if (retrievedValue.user.role == "company") {
+    } else if (retrievedValue?.user?.role == "company") {
       setUser("/CompanyDashboard");
     } else {
       setUser("/");
@@ -40,7 +40,7 @@ const DashNav = () => {
   const navigation = [
     { name: "Home", href: user },
     { name: "Jobs", href: "/jobs" },
-    { name: "My Applications", href: "#works" },
+    { name: "My Applications", href: "/MyApplications" },
   ];
 
   return (
