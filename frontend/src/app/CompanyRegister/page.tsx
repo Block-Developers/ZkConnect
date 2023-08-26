@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import CustomFileUpload from "../components/CustomFileUpload";
 import CustomFormComp from "../components/CustomFormComp";
@@ -13,25 +13,16 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation"; // Import the useRouter hook
 
-export default function CompanyLogin() {
+export default function Starting(): JSX.Element {
   const router = useRouter(); // Initialize the router
   const [loading, setLoading] = useState(true); // Initialize loading state
-  const [formData, setFormData] = useState({
-    CompanyLinkedIn: "",
-    CompanyLocation: "",
-    Employees: "0",
-    StartingYear: "0",
-    CompanyProfile: "",
-    Logo: "",
-  });
+  const [CompanyLinkedIn, setCompanyLinkedIn] = useState("");
+  const [CompanyLocation, setCompanyLocation] = useState("");
+  const [Employees, setEmployees] = useState("");
+  const [StartingYear, setStartingYear] = useState("");
+  const [CompanyProfile, setCompanyProfile] = useState("");
+  const [Logo, setLogo] = useState("");
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-  };
   useEffect(() => {
     // Check if there is a token in localStorage
     const id = getLocalStorageWithExpiry("userId");
@@ -50,63 +41,45 @@ export default function CompanyLogin() {
 
   const handleFileChange = (file) => {
     console.log("file", file);
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      Logo: file,
-    }));
+    setLogo(file); // Set the selected logo file object
   };
+
+  // Inside your handleSubmit function
 
   const handleSubmit = async () => {
     try {
       const id = getLocalStorageWithExpiry("userId");
-      console.log(id.token, "id");
       const token = id.token;
-      const formDataToSend = new FormData();
 
-      formDataToSend.append("CompanyLinkedIn", formData.CompanyLinkedIn);
-      formDataToSend.append("CompanyLocation", formData.CompanyLocation);
-      formDataToSend.append("Employees", formData.Employees);
-      formDataToSend.append("StartingYear", formData.StartingYear);
-      formDataToSend.append("CompanyProfile", formData.CompanyProfile);
-      formDataToSend.append("Logo", formData.Logo);
+      // Create a FormData object to hold the registration data
+      const formData = new FormData();
+      formData.append("CompanyLinkedIn", CompanyLinkedIn);
+      formData.append("CompanyLocation", CompanyLocation);
+      formData.append("Employees", Employees);
+      formData.append("StartingYear", StartingYear);
+      formData.append("CompanyProfile", CompanyProfile);
+      formData.append("Logo", Logo); // Make sure Logo contains the file object
 
       const response = await axios.post(
         "https://zk-backend.vercel.app/auth/registercompany",
-        formDataToSend,
+        formData, // Send the FormData object as the request body
         {
           headers: {
             Authorization: token,
+            "Content-Type": "multipart/form-data", // Set the appropriate content type
           },
         }
       );
 
       console.log("Data sent successfully:", response.data);
-      if (
-        response.status === 200 ||
-        response.status === 201 ||
-        response.status === 202 ||
-        response.status === 203 ||
-        response.status === 204
-      ) {
-        // Successful login
-
+      if (response.status === 201) {
+        // Successful registration
         toast.success("Company Registered Successfully!", { autoClose: 4000 });
-
         window.location.href = "/CompanyDashboard";
       } else {
-        // Error handling for unsuccessful login
-        // Handle the response as needed
+        // Error handling for unsuccessful registration
         console.log("Missing Values");
       }
-      // Reset form after successful submission if needed
-      setFormData({
-        CompanyLinkedIn: "",
-        CompanyLocation: "",
-        Employees: "0",
-        StartingYear: "0",
-        CompanyProfile: "",
-        Logo: "",
-      });
     } catch (error) {
       console.error("Error sending data:", error);
     }
@@ -129,32 +102,42 @@ export default function CompanyLogin() {
               <CustomFormComp
                 name="Company LinkedIn"
                 type="url"
-                value={formData.CompanyLinkedIn}
-                onChange={handleChange}
+                value={CompanyLinkedIn}
+                onChange={(event) => {
+                  setCompanyLinkedIn(event.target.value);
+                }}
               />
               <CustomFormComp
                 name="Company Location"
                 type="text"
-                value={formData.CompanyLocation}
-                onChange={handleChange}
+                value={CompanyLocation}
+                onChange={(event) => {
+                  setCompanyLocation(event.target.value);
+                }}
               />
               <CustomFormComp
                 name="Employees"
                 type="number"
-                value={formData.Employees}
-                onChange={handleChange}
+                value={Employees}
+                onChange={(event) => {
+                  setEmployees(event.target.value);
+                }}
               />
               <CustomFormComp
                 name="Starting Year"
                 type="number"
-                value={formData.StartingYear}
-                onChange={handleChange}
+                value={StartingYear}
+                onChange={(event) => {
+                  setStartingYear(event.target.value);
+                }}
               />
               <CustomTextBox
                 name="Company Profile"
                 placeholder="Tell us about your company"
-                value={formData.CompanyProfile}
-                onChange={handleChange}
+                value={CompanyProfile}
+                onChange={(event) => {
+                  setCompanyProfile(event.target.value);
+                }}
               />
 
               {/* Rest of the CustomFormComp components */}

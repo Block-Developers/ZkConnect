@@ -100,7 +100,7 @@ const CompanyPost = () => {
 
     if (response.status === 200 || 201 || 202 || 203 || 204) {
       toast.success("Job Created Successfully!", { autoClose: 4000 });
-      router.push("/Dashboard");
+      router.push("/CompanyDashboard");
     } else {
       // Error handling for unsuccessful login
       toast.error("Fill all the required field!", { autoClose: 4000 });
