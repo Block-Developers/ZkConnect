@@ -4,13 +4,26 @@ import { FaCheckCircle, FaExclamationTriangle } from "react-icons/fa";
 import { IoMdCloudUpload } from "react-icons/io";
 import Image from "next/image";
 import { MdOutlinePending } from "react-icons/md";
-import DashNav from "../components/DashNav";
+// import DashNav from "../components/DashNav";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import dynamic from "next/dynamic";
+
 import { getLocalStorageWithExpiry } from "../components/store";
+
+const DynamicHeader = dynamic(() => import("../components/DashNav"), {
+  ssr: false,
+});
+
 function Page() {
   const [loading, setLoading] = useState(true);
   const [application, setApplications] = useState(null);
+
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const [userdata, setUserdata] = useState<{ username?: string } | null>(null);
   const [token, setToken] = useState("");
   const router = useRouter(); // Initialize the router
@@ -53,11 +66,13 @@ function Page() {
   return (
     <>
       {loading ? (
-        <>Loading</>
+        <>
+          <p>Loading</p>
+        </>
       ) : (
         <>
           <div className="hero2">
-            <DashNav />
+            <DynamicHeader />
 
             <div className="py-44">
               <div className="flex justify-center items-center py-4  md:text-[40px] font-agrandir font-extrabold leading-6 text-white pt-[80px]">
