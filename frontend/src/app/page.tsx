@@ -133,12 +133,7 @@ export default function Home() {
           <div
             id="features"
             className="font-extrabold text-center text-white pb-5 text-2xl pt-20"
-          >
-            <a href="#contact" id="contact">
-              {" "}
-            </a>
-            Let&apos;s gooo!
-          </div>
+          ></div>
         </div>
       </div>
     </main>
