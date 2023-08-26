@@ -17,7 +17,6 @@ export default function CompanyLogin() {
   const router = useRouter(); // Initialize the router
   const [loading, setLoading] = useState(true); // Initialize loading state
   const [formData, setFormData] = useState({
-    CompanyNumber: "",
     CompanyLinkedIn: "",
     CompanyLocation: "",
     Employees: "0",
@@ -63,7 +62,7 @@ export default function CompanyLogin() {
       console.log(id.token, "id");
       const token = id.token;
       const formDataToSend = new FormData();
-      formDataToSend.append("CompanyNumber", formData.CompanyNumber);
+
       formDataToSend.append("CompanyLinkedIn", formData.CompanyLinkedIn);
       formDataToSend.append("CompanyLocation", formData.CompanyLocation);
       formDataToSend.append("Employees", formData.Employees);
@@ -101,7 +100,6 @@ export default function CompanyLogin() {
       }
       // Reset form after successful submission if needed
       setFormData({
-        CompanyNumber: "",
         CompanyLinkedIn: "",
         CompanyLocation: "",
         Employees: "0",
@@ -128,12 +126,6 @@ export default function CompanyLogin() {
               Hi there!👋 <br /> Let&apos;s get started
             </center>
             <div className="flex flex-col mx-6  md:mx-[150px]   md:mt-[20px] border px-6 md:p-[100px] border-white rounded-2xl text-white md:text-[20px] leading-6 font-agrandir">
-              <CustomFormComp
-                name="Company Number"
-                type="number"
-                value={formData.CompanyNumber}
-                onChange={handleChange}
-              />
               <CustomFormComp
                 name="Company LinkedIn"
                 type="url"

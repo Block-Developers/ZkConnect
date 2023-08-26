@@ -10,6 +10,7 @@ import DashNav from "../components/DashNav";
 import Image from "next/image";
 import compt from "../../Assets/Group 37086.png";
 import Logo from "../../Assets/LOGOS.png";
+import Link from "next/link";
 
 export default function CompanyDashboard() {
   const [userdata, setUserdata] = useState<{ username?: string } | null>(null);
@@ -26,7 +27,7 @@ export default function CompanyDashboard() {
       setUserdata(retrievedValue.user);
       setLoading(false);
     } else {
-      router.push("/Login");
+      router.push("/CompanyDashboard");
     }
   }, []);
   const name = userdata?.username;
@@ -49,11 +50,11 @@ export default function CompanyDashboard() {
                     <span className="getjob">Applicant 🚀</span>
                   </div>
                   <div className="flex justify-center items-center relative md:bottom-0 md:left-0 md:mx-[0px] mt-[5px] rounded-3xl  w-[560px] h-[50px] text-white">
-                    <div className="">
+                    <Link href="/CompanyPost" className="">
                       <button className=" px-5 py-3 my-2 text-lg bg-[#640074] text-white rounded-2xl flex text-center  leading-6 font-agrandir justify-start items-center gap-4 cursor-pointer">
                         Create Post
                       </button>
-                    </div>
+                    </Link>
                   </div>
                 </div>
               </div>
