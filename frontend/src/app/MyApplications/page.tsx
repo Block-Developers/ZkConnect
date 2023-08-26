@@ -59,8 +59,8 @@ function Page() {
           <div className="hero2">
             <DashNav />
 
-            <div className="py-32">
-              <div className="flex justify-center items-center  md:text-[40px] font-agrandir font-extrabold leading-6 text-white pt-[80px]">
+            <div className="py-44">
+              <div className="flex justify-center items-center py-4  md:text-[40px] font-agrandir font-extrabold leading-6 text-white pt-[80px]">
                 {" "}
                 <span className="underline">My Applications</span>{" "}
                 <span className="no-underline">🚀</span>
@@ -68,7 +68,7 @@ function Page() {
               {application?.map((application) => (
                 <div
                   key={application._id}
-                  className="md:px-[100px] md:py-[50px] pt-[10px] px-[10px]"
+                  className="md:px-[100px] md:py-[54px] pt-[10px] px-[10px]"
                 >
                   <div className="flex flex-col">
                     <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
