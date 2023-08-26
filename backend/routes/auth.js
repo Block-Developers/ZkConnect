@@ -6,7 +6,8 @@ const User = require("../models/user");
 const { verifyToken } = require("../middleware/auth");
 const nodemailer = require("nodemailer");
 const randomstring = require("randomstring");
-
+const multer = require("multer");
+const upload = multer();
 const router = express.Router();
 
 // Signup route
@@ -143,46 +144,52 @@ router.post("/registerUser", verifyToken, async (req, res) => {
   }
 });
 
-router.post("/registerCompany", verifyToken, async (req, res) => {
-  try {
-    const {
-      CompanyNumber,
-      CompanyLinkedIn,
-      CompanyLocation,
-      Employees,
-      StartingYear,
-      CompanyProfile,
-      Logo,
-    } = req.body;
+router.post(
+  "/registerCompany",
+  verifyToken,
+  upload.single("Logo"),
+  async (req, res) => {
+    try {
+      const {
+        CompanyNumber,
+        CompanyLinkedIn,
+        CompanyLocation,
+        Employees,
+        StartingYear,
+        CompanyProfile,
+      } = req.body;
 
-    // Find the user by their ID (assuming req.userId holds the ID)
-    const user = await User.findById(req.userId);
+      // Find the user by their ID (assuming req.userId holds the ID)
+      const user = await User.findById(req.userId);
 
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      // Push the company registration data into the companyregister array
+      user.companyregister.push({
+        CompanyNumber,
+        CompanyLinkedIn,
+        CompanyLocation,
+        Employees,
+        StartingYear,
+        CompanyProfile,
+        Logo: req.file.buffer, // Store the image binary data in the Logo field
+      });
+
+      // Save the updated user to the database
+      await user.save();
+
+      res
+        .status(201)
+        .json({ message: "Company registered successfully", user });
+    } catch (err) {
+      res
+        .status(500)
+        .json({ message: "Error registering company", error: err.message });
     }
-
-    // Push the company registration data into the companyregister array
-    user.companyregister.push({
-      CompanyNumber,
-      CompanyLinkedIn,
-      CompanyLocation,
-      Employees,
-      StartingYear,
-      CompanyProfile,
-      Logo,
-    });
-
-    // Save the updated user to the database
-    await user.save();
-
-    res.status(201).json({ message: "Company registered successfully", user });
-  } catch (err) {
-    res
-      .status(500)
-      .json({ message: "Error registering company", error: err.message });
   }
-});
+);
 
 // Protected route example
 router.get("/protected", (req, res) => {
