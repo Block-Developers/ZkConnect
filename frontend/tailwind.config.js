@@ -14,6 +14,8 @@ module.exports = {
       },
       fontFamily: {
         agrandir: ["Agrandir", "sans-serif"],
+        koulen: ["Koulen", "cursive"],
+        "zilla-slab": ["Zilla Slab", "serif"],
       },
     },
   },

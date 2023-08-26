@@ -17,6 +17,11 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.ico" />
+
+        <link
+          href="https://fonts.googleapis.com/css2?family=Koulen&family=Zilla+Slab:wght@700&display=swap"
+          rel="stylesheet"
+        />
       </head>
       <body className={inter.className}>{children}</body>
     </html>

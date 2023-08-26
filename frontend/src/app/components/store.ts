@@ -22,3 +22,8 @@ export function getLocalStorageWithExpiry(key) {
   }
   return item.value;
 }
+
+// Function to handle logout
+export function handleLogout(key) {
+  localStorage.removeItem(key);  // Remove the user data from localStorage
+}

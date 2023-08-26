@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Koulen&family=Zilla+Slab:wght@700&display=swap');
 
 .hero1 {
   background-image: url("../Assets/First-bg.png");
@@ -42,9 +43,10 @@ body {
   }
  
 .hero3 {
-  background-image: url("../app/Images/Dashbg.png");
+  background-image: url("../Assets/BG.png");
   background-size: cover;
   background-position: center;
+
   width: auto;
   height: auto;
 }
@@ -57,4 +59,15 @@ body {
     width: auto;
     height: auto;
   }
+}
+
+.text-stroke {
+  color: black;
+  -webkit-text-stroke: 3px white;  /* Apply text stroke */
+  text-stroke: 1px white;  
+  
+}
+
+.getjob{
+  color: #ae3fbf ;
 }
