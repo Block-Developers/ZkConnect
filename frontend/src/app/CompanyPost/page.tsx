@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import MainNav from "../components/mainNav";
+import DashNav from "../components/DashNav";
 import { getLocalStorageWithExpiry } from "../components/store";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
@@ -134,7 +134,7 @@ const CompanyPost = () => {
       ) : (
         <>
           <div className="hero2">
-            <MainNav />
+            <DashNav />
             <div className="mt-[100px] py-10 ">
               <center className="mt-[20px] md:text-[38px] text-[25px] pt-[10px] font-extrabold leading-6 font-agrandir  flex justify-center items-center text-white w-full">
                 Create a Job Hiring Post
