@@ -20,7 +20,7 @@ export default function CompanyDashboard() {
     // Perform localStorage action
     const retrievedValue = getLocalStorageWithExpiry("userId");
     console.log(retrievedValue);
-    if (!retrievedValue.token) {
+    if (!retrievedValue?.token) {
       router.push("/Login");
     } else if (retrievedValue.user.role == "company") {
       setUserdata(retrievedValue.user);
@@ -48,19 +48,10 @@ export default function CompanyDashboard() {
                     <span className="getjob">Hire Your</span> <br />
                     <span className="getjob">Applicant 🚀</span>
                   </div>
-                  <div className="flex justify-center items-center relative md:bottom-0 md:left-0 md:mx-[0px] mt-[5px] rounded-3xl bg-[#0000008F] bg-opacity-50 w-[560px] h-[50px] text-white">
-                    <div className="flex space-x-3">
-                      <div className="py-3 flex text-center text-[22px] leading-6 font-agrandir justify-start items-center gap-2 cursor-pointer">
-                        <FaHome className="w-8 h-8" />
-                        Find Job Here
-                      </div>
-                      <div className="py-3  flex text-center text-[22px] leading-6 font-agrandir justify-start items-center gap-2 cursor-pointer">
-                        {" "}
-                        <FaRunning className="w-8 h-8" />
-                        Chennai, India
-                      </div>
-                      <button className=" px-5 my-2  bg-[#640074] text-white rounded-3xl flex text-center text-[18px] leading-6 font-agrandir justify-start items-center gap-4 cursor-pointer">
-                        Search
+                  <div className="flex justify-center items-center relative md:bottom-0 md:left-0 md:mx-[0px] mt-[5px] rounded-3xl  w-[560px] h-[50px] text-white">
+                    <div className="">
+                      <button className=" px-5 py-3 my-2 text-lg bg-[#640074] text-white rounded-2xl flex text-center  leading-6 font-agrandir justify-start items-center gap-4 cursor-pointer">
+                        Create Post
                       </button>
                     </div>
                   </div>

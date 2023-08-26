@@ -10,6 +10,8 @@ import DashNav from "../components/DashNav";
 import Image from "next/image";
 import compt from "../../Assets/Group 37086.png";
 import Logo from "../../Assets/LOGOS.png";
+import { AiOutlineSearch } from "react-icons/ai";
+import { SlLocationPin } from "react-icons/sl";
 
 export default function UserDashboard() {
   const [userdata, setUserdata] = useState<{ username?: string } | null>(null);
@@ -50,15 +52,23 @@ export default function UserDashboard() {
                     <span className="getjob">Dream Job 🚀</span>
                   </div>
                   <div className="flex justify-center items-center relative md:bottom-0 md:left-0 md:mx-[0px] mt-[5px] rounded-3xl bg-[#0000008F] bg-opacity-50 w-[560px] h-[50px] text-white">
-                    <div className="flex space-x-3">
+                    <div className="flex space-x-2 ">
                       <div className="py-3 flex text-center text-[22px] leading-6 font-agrandir justify-start items-center gap-2 cursor-pointer">
-                        <FaHome className="w-8 h-8" />
-                        Find Job Here
+                        <AiOutlineSearch className="w-8 h-8" />
+                        <input
+                          type="text"
+                          className="bg-none w-36 text-white bg-[#0000008F] bg-opacity-50  outline-none"
+                          placeholder="Find Job Here"
+                        />
                       </div>
-                      <div className="py-3  flex text-center text-[22px] leading-6 font-agrandir justify-start items-center gap-2 cursor-pointer">
+                      <div className="  flex text-center text-[22px] leading-6 font-agrandir justify-start items-center gap-2 cursor-pointer">
                         {" "}
-                        <FaRunning className="w-8 h-8" />
-                        Chennai, India
+                        <SlLocationPin className="w-8 h-8 text-white" />
+                        <input
+                          type="text"
+                          className="bg-none w-36 text-white bg-[#0000008F] bg-opacity-50  outline-none"
+                          placeholder="Chennai, India"
+                        />
                       </div>
                       <button className=" px-5 my-2  bg-[#640074] text-white rounded-3xl flex text-center text-[18px] leading-6 font-agrandir justify-start items-center gap-4 cursor-pointer">
                         Search
