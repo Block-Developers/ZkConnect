@@ -16,7 +16,7 @@ export default function Jobslist({
   return (
     <div
       key={id}
-      className=" rounded-xl  text-white bg-[#202020] dark:bg-dark-700 p-6 cursor-pointer border border-white hover:border-yellow-400 hover:dark:border-dark-100 my-8"
+      className=" rounded-xl  text-white bg-[#202020] dark:bg-dark-700 p-6  border border-white hover:border-yellow-400 hover:dark:border-dark-100 my-8"
     >
       <div className="flex gap-7 justify-between items-center flex-col md:flex-row w-full py-2 px-5">
         <div className="flex gap-6 items-center w-full">

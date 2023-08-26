@@ -21,7 +21,7 @@ function Page() {
     if (!retrievedValue?.token) {
       router.push("/Login");
     } else if (retrievedValue.user.role == "user") {
-      // setUserdata(retrievedValue.user);
+      setUserdata(retrievedValue.user);
       setLoading(false);
     } else {
       router.push("/Login");
