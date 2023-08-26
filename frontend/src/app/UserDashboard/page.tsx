@@ -53,7 +53,7 @@ export default function UserDashboard() {
                   </div>
                   <div className="flex justify-center items-center relative md:bottom-0 md:left-0 md:mx-[0px] mt-[5px] rounded-3xl bg-[#0000008F] bg-opacity-50 w-[560px] h-[50px] text-white">
                     <div className="flex space-x-2 ">
-                      <div className="py-3 flex text-center text-[22px] leading-6 font-agrandir justify-start items-center gap-2 cursor-pointer">
+                      <div className="py-3 flex text-center text-[18px] leading-6 font-agrandir justify-start items-center gap-2 cursor-pointer">
                         <AiOutlineSearch className="w-8 h-8" />
                         <input
                           type="text"
@@ -61,7 +61,7 @@ export default function UserDashboard() {
                           placeholder="Find Job Here"
                         />
                       </div>
-                      <div className="  flex text-center text-[22px] leading-6 font-agrandir justify-start items-center gap-2 cursor-pointer">
+                      <div className="  flex text-center text-[18px] leading-6 font-agrandir justify-start items-center gap-2 cursor-pointer">
                         {" "}
                         <SlLocationPin className="w-8 h-8 text-white" />
                         <input
