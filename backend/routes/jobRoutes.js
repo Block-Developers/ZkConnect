@@ -94,6 +94,29 @@ router.post("/apply", verifyToken, async (req, res) => {
   }
 });
 
+// Get a specific job post by ID with associated company details
+router.get("/:jobId", async (req, res) => {
+  try {
+    const jobId = req.params.jobId;
+    const jobPost = await JobPost.findById(jobId).populate("company");
+
+    if (!jobPost) {
+      return res.status(404).json({
+        success: false,
+        message: "Job post not found",
+      });
+    }
+
+    res.status(200).json({ success: true, jobPost });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "An error occurred",
+      error: error.message,
+    });
+  }
+});
+
 router.get("/:jobId/applicants", verifyToken, async (req, res) => {
   try {
     const jobPost = await JobPost.findById(req.params.jobId).populate({

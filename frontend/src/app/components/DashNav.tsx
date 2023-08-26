@@ -13,15 +13,24 @@ import { useRouter } from "next/navigation";
 const DashNav = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userdata, setUserdata] = useState<{ username?: string } | null>(null);
+  const [user, setUser] = useState("");
   const [showDropdown, setShowDropdown] = useState(false); // State to manage the dropdown
   const router = useRouter(); // Initialize the router
   useEffect(() => {
     const retrievedValue = getLocalStorageWithExpiry("userId");
     setUserdata(retrievedValue?.user);
+    if (retrievedValue.user.role == "user") {
+      setUser("/UserDashboard");
+    } else if (retrievedValue.user.role == "company") {
+      setUser("/CompanyDashboard");
+    } else {
+      setUser("/");
+    }
   }, []);
   const logout = () => {
     handleLogout("userId"); // Remove the userId from localStorage
     setUserdata(null); // Update the component state
+
     setShowDropdown(false); // Close the dropdown
     router.push("/Login");
   };
@@ -29,8 +38,8 @@ const DashNav = () => {
   const username = userdata?.username;
 
   const navigation = [
-    { name: "Home", href: "#" },
-    { name: "Jobs", href: "#about" },
+    { name: "Home", href: user },
+    { name: "Jobs", href: "/jobs" },
     { name: "My Applications", href: "#works" },
   ];
 
