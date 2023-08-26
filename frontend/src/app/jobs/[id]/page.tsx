@@ -54,7 +54,7 @@ export default function ApplicationProcess({
       // Store the id value in localStorage
     } else {
       // Error handling for unsuccessful login
-
+      toast.error("You've applied to this job already!", { autoClose: 4000 });
       // Handle the response as needed
       console.log("Missing Values");
     }
