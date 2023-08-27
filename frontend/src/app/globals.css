@@ -10,6 +10,15 @@
   width: auto;
   height: auto;
 }
+
+.zkhero {
+  background-image: url("../Assets/bgforzk.png");
+  background-size: cover;
+  background-position: center;
+  width: auto;
+  height: 100%;
+}
+
 .hero2 {
   background-image: url("../Assets/UserLogin.png");
   background-size: cover;

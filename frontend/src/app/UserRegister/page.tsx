@@ -25,7 +25,38 @@ export default function Starting(): JSX.Element {
   const [profileBio, setProfileBio] = useState(""); // Initialize the state variable for the text area
   const [loading, setLoading] = useState(true); // Initialize loading state
 
+
+  const [account, setAccount] = useState(''); // Initialize account state variable
+// State variables to hold form inputs
+const [names, setName] = useState('');
+const [experience, setExperience] = useState('');
+const [designation, setDesignation] = useState('');
   const router = useRouter(); // Initialize the router
+
+  const [modalVisible, setModalVisible] = useState(false);
+  // ... (other state and effects)
+
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
+
+  const handleMintNFT = async () => {
+    // Call your mint function here with the form inputs
+    // For example: mint(name, experience, designation, account);
+    console.log('Minting NFT with the following details:', { account, name, experience, designation });
+let a = account;
+    const res = await mint({
+      account,name, designation, experience });
+
+      console.log(res);
+
+      if(res){
+        router.push("/");
+      }
+  };
+
+
+
   const handleProfileBioChange = (event) => {
     const value = event.target.value;
     setProfileBio(value);
@@ -61,7 +92,30 @@ export default function Starting(): JSX.Element {
       setLoading(false);
     }
   }, []);
-
+ // Function to connect wallet
+ const connectWallet = async () => {
+  if (window.ethereum) {
+    // Initialize web3 instance
+    const web3 = new Web3(window.ethereum);
+    try {
+      // Request account access
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      // Set state
+      setAccount(accounts[0]);
+    } catch (error) {
+      console.error("User denied account access");
+    }
+  } else if (window.web3) {
+    // Initialize web3 instance
+    const web3 = new Web3(window.web3.currentProvider);
+    // Fetch accounts
+    const accounts = await web3.eth.getAccounts();
+    // Set state
+    setAccount(accounts[0]);
+  } else {
+    window.alert('Non-Ethereum browser detected. Consider installing MetaMask!');
+  }
+};
   const handleFormSubmit = async (): Promise<void> => {
     const formData = new FormData();
     formData.append("file", resume);
@@ -282,6 +336,91 @@ export default function Starting(): JSX.Element {
                     Content Writer
                   </button>
                 </div>
+              </div>
+
+<div className="my-5">
+<h1 className="text-left text-white text-3xl font-sans" >NFT</h1>
+</div>
+
+              <div className="py-5">
+
+              <div style={{ zIndex: 999999 }}>
+        <button onClick={toggleModal} className="border px-5 py-2 rounded-lg hover:bg-black hover:text-white">Mint Your Identity</button>
+      </div>
+          {/* Modal */}
+          {modalVisible && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0,0,0,0.5)',
+          zIndex: 1000000, // Very high z-index
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }} >
+          <div style={{
+          
+            padding: '20px',
+            borderRadius: '10px'
+          }} className="w-[780px] h-[680px] bg-black bg-opacity-95">
+          
+            <button onClick={toggleModal} style={{ color: 'white' }}>Close</button>
+
+            <div className="p-[50px]">
+              <div className="pt-[20px]">
+                <h1 className="text-[#CA00EB] font-sans text-center text-[45px] font-semibold leading-[48px]">
+                Claim your NFT
+                </h1>
+              </div>
+
+              <div className="pt-[15px] px-[0px]">
+<div className="flex flex-col">
+<h1 className="text-white text-[20px] font-agrandir font-normal leading-[20px] ">Name
+  </h1>
+  <div className="py-2 pb-4">
+    <input type="text" name="" id="" value={names} 
+            onChange={(e) => setName(e.target.value)}   className="w-[550px] h-[45px] rounded-[10px] border placeholder:px-5 "/></div></div>
+
+    <div className="flex flex-col">
+<h1 className="text-white text-[20px] font-agrandir font-normal leading-[20px] ">Experience
+  </h1>
+  <div className="py-2 pb-4">
+    <input type="text" name="" id=""  value={experience} 
+            onChange={(e) => setExperience(e.target.value)}  className="w-[550px] h-[45px] rounded-[10px] border"/></div></div>
+
+    <div className="flex flex-col">
+<h1 className="text-white text-[20px] font-agrandir font-normal leading-[20px] ">Designation
+  </h1>
+  <div className="py-2">
+    <input type="text" name="" id=""        value={designation} 
+            onChange={(e) => setDesignation(e.target.value)}  className="w-[550px] h-[45px] rounded-[10px] border"/></div></div>
+              </div>
+
+              <div className="flex justify-center items-center pt-6 ">
+                {
+                  account ? (<div className="text-white text-center font-agrandir text-[20px] pb-10">Connected: {account}
+                  <div className="flex justify-center items-center pt-8">
+                  <button onClick={handleMintNFT} className="text-white text-center bg-[#7D088F]  border px-4 py-3 rounded-xl">
+                    Claim your NFT
+                  </button>
+                  </div>
+                  </div>) : (
+                    <button onClick={connectWallet} className="text-white border px-4 py-3 rounded-xl">
+                    Connect wallet
+                  </button>
+                  )
+                }
+   
+              </div>
+
+              
+            </div>
+          </div>
+        </div>
+      )}
               </div>
 
               <button
