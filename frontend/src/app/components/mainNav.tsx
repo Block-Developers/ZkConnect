@@ -7,10 +7,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 const navigation = [
-  { name: "Home", href: "#" },
-  { name: "Job", href: "#" },
-  { name: "How it works", href: "#" },
-  { name: "Contact Us", href: "#" },
+  { name: "Home", href: "/" },
+  { name: "Job", href: "/jobs" },
+  { name: "How it works", href: "#works" },
 ];
 
 function MainNav() {

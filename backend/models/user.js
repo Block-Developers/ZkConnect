@@ -27,7 +27,21 @@ const userSchema = new mongoose.Schema({
     },
   },
   jobApplications: [
-    { type: mongoose.Schema.Types.ObjectId, ref: "JobApplication" },
+    {
+      jobPost: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "JobPost",
+      },
+      status: {
+        type: String,
+        enum: ["pending", "selected", "rejected"],
+        default: "pending",
+      },
+      appliedDate: {
+        type: Date,
+        default: Date.now,
+      },
+    },
   ],
 
   userregister: [
@@ -36,6 +50,8 @@ const userSchema = new mongoose.Schema({
       lastName: { type: String },
       location: { type: String },
       contactNumber: { type: String },
+      github: { type: String },
+      linkedin: { type: String },
       resume: { type: String },
       profileBio: { type: String },
       selectedButton: { type: String },

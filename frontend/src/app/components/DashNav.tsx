@@ -13,15 +13,42 @@ import { useRouter } from "next/navigation";
 const DashNav = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userdata, setUserdata] = useState<{ username?: string } | null>(null);
+  const [user, setUser] = useState("");
+  const [token, setToken] = useState("");
+  const [nav2, setNav2] = useState("");
+  const [href3, setHref3] = useState("");
+  const [nav3, setNav3] = useState("");
+  const [job, setJobs] = useState("");
   const [showDropdown, setShowDropdown] = useState(false); // State to manage the dropdown
   const router = useRouter(); // Initialize the router
   useEffect(() => {
     const retrievedValue = getLocalStorageWithExpiry("userId");
     setUserdata(retrievedValue?.user);
+    setToken(retrievedValue?.token);
+    if (retrievedValue?.user?.role == "user") {
+      setUser("/UserDashboard");
+      setJobs("/jobs");
+      setNav2("Jobs");
+      setNav3("My Applications");
+      setHref3("/MyApplications");
+    } else if (retrievedValue?.user?.role == "company") {
+      setUser("/CompanyDashboard");
+      setJobs("/CompanyPost");
+      setNav2("Create Post");
+      setNav3("Past Post");
+      setHref3("/Pastpost");
+    } else {
+      setUser("/");
+      setJobs("/jobs");
+      setNav2("Jobs");
+      setNav3("How it works");
+      setHref3("#works");
+    }
   }, []);
   const logout = () => {
     handleLogout("userId"); // Remove the userId from localStorage
     setUserdata(null); // Update the component state
+
     setShowDropdown(false); // Close the dropdown
     router.push("/Login");
   };
@@ -29,9 +56,9 @@ const DashNav = () => {
   const username = userdata?.username;
 
   const navigation = [
-    { name: "Home", href: "#" },
-    { name: "Jobs", href: "#about" },
-    { name: "My Applications", href: "#works" },
+    { name: "Home", href: user },
+    { name: nav2, href: job },
+    { name: nav3, href: href3 },
   ];
 
   return (
@@ -56,7 +83,7 @@ const DashNav = () => {
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-          <div className="hidden lg:flex lg:gap-x-16 lg:flex-1 lg:justify-end">
+          <div className="hidden lg:flex lg:space-x-10 lg:flex-1 lg:justify-end">
             {navigation.map((item) => (
               <Link key={item.name} href={item.href}>
                 <div className="text-lg font-semibold leading-6 pt-4 text-gray-100 flex">
@@ -64,39 +91,58 @@ const DashNav = () => {
                 </div>
               </Link>
             ))}
-            <div className="relative inline-block border  rounded-xl	hover:bg-[#640074] border-white pb-3 px-2 text-left">
-              <button
-                onClick={() => setShowDropdown(!showDropdown)}
-                className="text-lg font-semibold leading-6 pt-4 text-gray-100 flex"
-              >
-                <FiUser className="h-6 w-6 mr-2" />
-                {username}
-              </button>
-              {showDropdown && (
-                <div className="origin-top-right absolute right-0  w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                  <div
-                    className="py-1 flex flex-col"
-                    role="menu"
-                    aria-orientation="vertical"
-                    aria-labelledby="options-menu"
-                  >
-                    <Link href="/EditProfile">
-                      <button
-                        className="block px-5 py-2  text-sm text-gray-700 hover:bg-gray-100"
-                        role="menuitem"
-                      >
-                        Edit Profile
+            <div>
+              {token ? (
+                <>
+                  <div className="relative  border  rounded-xl	hover:bg-[#640074] border-white pb-3 px-2 text-left">
+                    <button
+                      onClick={() => setShowDropdown(!showDropdown)}
+                      className="text-lg font-semibold leading-6 pt-4 text-gray-100 flex"
+                    >
+                      <FiUser className="h-6 w-6 mr-2" />
+                      {username}
+                    </button>
+                    {showDropdown && (
+                      <div className="origin-top-right absolute right-0  w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                        <div
+                          className="py-1 flex flex-col"
+                          role="menu"
+                          aria-orientation="vertical"
+                          aria-labelledby="options-menu"
+                        >
+                          <Link href="/EditProfile">
+                            <button
+                              className="block px-5 py-2  text-sm text-gray-700 hover:bg-gray-100"
+                              role="menuitem"
+                            >
+                              Edit Profile
+                            </button>
+                          </Link>
+                          <button
+                            onClick={logout}
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            role="menuitem"
+                          >
+                            Log Out
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="py-6">
+                    <Link
+                      href="/Login"
+                      className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-100 hover:bg-gray-800"
+                    >
+                      <button className="border  rounded-xl	 border-white p-3 ">
+                        LOGIN/SIGN IN
                       </button>
                     </Link>
-                    <button
-                      onClick={logout}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      role="menuitem"
-                    >
-                      Log Out
-                    </button>
                   </div>
-                </div>
+                </>
               )}
             </div>
           </div>

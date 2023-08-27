@@ -16,7 +16,7 @@ export default function Jobslist({
   return (
     <div
       key={id}
-      className=" rounded-xl  text-white bg-[#202020] dark:bg-dark-700 p-6 cursor-pointer border border-white hover:border-yellow-400 hover:dark:border-dark-100 my-8"
+      className=" rounded-xl  text-white bg-[#202020] dark:bg-dark-700 p-6  border border-white hover:border-yellow-400 hover:dark:border-dark-100 my-8"
     >
       <div className="flex gap-7 justify-between items-center flex-col md:flex-row w-full py-2 px-5">
         <div className="flex gap-6 items-center w-full">
@@ -54,14 +54,16 @@ export default function Jobslist({
           <div className="whitespace-nowrap text-md text-dark-300 dark:text-light-300">
             <div className="w-fit">
               <div className="rounded-lg  dark:border-dark-100 flex items-center justify-center h-32 w-32">
-                <Image
-                  src={logo}
-                  alt="Job Logo"
-                  className="rounded-lg"
-                  width={100}
-                  height={100}
-                  style={{ width: "90%", height: "90%" }}
-                />
+                {logo ? (
+                  <Image
+                    src={`data:image/png;base64,${logo}`}
+                    alt="Job Logo"
+                    width={100}
+                    height={100}
+                  />
+                ) : (
+                  <p>No Logo Available</p>
+                )}
               </div>
             </div>
           </div>
