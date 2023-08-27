@@ -79,55 +79,58 @@ function Page() {
               <div className="md:px-[100px] md:py-[20px] pt-[10px] px-[10px]">
                 {application ? (
                   <>
-                    {application?.map((application) => (
-                      <div key={application?._id}>
-                        <div className="flex flex-col">
-                          <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                            <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-                              <div className="overflow-hidden">
-                                <table className="min-w-full text-left text-sm font-light text-white ">
-                                  <thead className="border-b font-medium dark:border-neutral-500">
-                                    <tr>
-                                      <th
-                                        scope="col"
-                                        className="md:px-6 md:py-4 py-2 px-3"
-                                      >
-                                        Company&apos;s Name
-                                      </th>
-                                      <th
-                                        scope="col"
-                                        className="md:px-6 md:py-4 py-2 px-3"
-                                      >
-                                        Profile
-                                      </th>
-                                      <th
-                                        scope="col"
-                                        className="md:px-6 md:py-4 py-2 px-3"
-                                      >
-                                        No. of Application
-                                      </th>
-                                      <th
-                                        scope="col"
-                                        className="md:px-6 md:py-4 py-2 px-3"
-                                      >
-                                        Date of Submitting
-                                      </th>
-                                      <th
-                                        scope="col"
-                                        className="md:px-6 md:py-4 py-2 px-3"
-                                      >
-                                        Status
-                                      </th>
-                                      <th
-                                        scope="col"
-                                        className="md:px-6 md:py-4 py-2 px-3"
-                                      >
-                                        Resume
-                                      </th>
-                                    </tr>
-                                  </thead>
-                                  <tbody className="rounded-xl">
-                                    <tr className="border transition duration-300 ease-in-out hover:text-black hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600 mb-[25px] p-[30px] rounded-3xl">
+                    <div>
+                      <div className="flex flex-col">
+                        <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                          <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                            <div className="overflow-hidden">
+                              <table className="min-w-full text-left text-sm font-light text-white ">
+                                <thead className="border-b font-medium dark:border-neutral-500">
+                                  <tr>
+                                    <th
+                                      scope="col"
+                                      className="md:px-6 md:py-4 py-2 px-3"
+                                    >
+                                      Company&apos;s Name
+                                    </th>
+                                    <th
+                                      scope="col"
+                                      className="md:px-6 md:py-4 py-2 px-3"
+                                    >
+                                      Profile
+                                    </th>
+                                    <th
+                                      scope="col"
+                                      className="md:px-6 md:py-4 py-2 px-3"
+                                    >
+                                      No. of Application
+                                    </th>
+                                    <th
+                                      scope="col"
+                                      className="md:px-6 md:py-4 py-2 px-3"
+                                    >
+                                      Date of Submitting
+                                    </th>
+                                    <th
+                                      scope="col"
+                                      className="md:px-6 md:py-4 py-2 px-3"
+                                    >
+                                      Status
+                                    </th>
+                                    <th
+                                      scope="col"
+                                      className="md:px-6 md:py-4 py-2 px-3"
+                                    >
+                                      Resume
+                                    </th>
+                                  </tr>
+                                </thead>
+                                <tbody className="rounded-xl">
+                                  {application?.map((application) => (
+                                    <tr
+                                      key={application?._id}
+                                      className="border transition duration-300 ease-in-out hover:text-black hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600 mb-[25px] p-[30px] rounded-3xl"
+                                    >
                                       <td className="whitespace-nowrap md:px-6 md:py-4 py-2 px-3 font-medium">
                                         <div className="flex space-x-2">
                                           <img
@@ -184,14 +187,14 @@ function Page() {
                                         />
                                       </td>
                                     </tr>
-                                  </tbody>
-                                </table>
-                              </div>
+                                  ))}
+                                </tbody>
+                              </table>
                             </div>
                           </div>
                         </div>
                       </div>
-                    ))}
+                    </div>
                   </>
                 ) : (
                   <>
