@@ -43,9 +43,10 @@ export default function AppliedForCompanyApplications() {
                       </tr>
                     </thead>
                     <tbody className="rounded-xl">
-                      <tr className="border transition duration-300 ease-in-out hover:text-black hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600 mb-[25px] p-[30px] rounded-3xl">
+                       {data.map((skill, index) => (
+                      <tr key={data._id} className="border transition duration-300 ease-in-out hover:text-black hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600 mb-[25px] p-[30px] rounded-3xl">
                         <td className="whitespace-nowrap md:px-6 md:py-4 py-2 px-3 font-medium">
-                          Thiru
+                          {data.username}
                         </td>
                         <td className="whitespace-nowrap md:px-6 md:py-4 py-2 px-3">
                           https://github.com/Thirumurugan7
@@ -85,6 +86,7 @@ export default function AppliedForCompanyApplications() {
                           {" "}
                           <IoMdCloudUpload size={32} color="blue" />
                         </td>
+                           ))}
                       </tr>
                       <tr className="border transition duration-300 ease-in-out hover:text-black hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
                         <td className="whitespace-nowrap md:px-6 md:py-4 py-2 px-3 font-medium">

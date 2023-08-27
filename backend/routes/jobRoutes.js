@@ -116,7 +116,7 @@ router.get("/:jobId/applicants-details", verifyToken, async (req, res) => {
     const jobPost = await JobPost.findById(jobId)
       .populate({
         path: "applicants",
-        select: "username email",
+        model: "User", // Specify the model to populate from
       })
       .exec();
 
@@ -171,6 +171,34 @@ router.put(
   }
 );
 
+// Add this route to your existing code
+router.get("/my-posts", verifyToken, async (req, res) => {
+  try {
+    const userId = req.userId;
+
+    // Find the company using the userId
+    const company = await User.findById(userId);
+
+    if (!company) {
+      return res.status(404).json({
+        success: false,
+        message: "Company not found",
+      });
+    }
+
+    // Find all job posts created by the company
+    const jobPosts = await JobPost.find({ company: company._id });
+
+    res.status(200).json({ success: true, jobPosts });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "An error occurred",
+      error: error.message,
+    });
+  }
+});
+
 // Get the applications for the logged-in user
 router.get("/my-applications", verifyToken, async (req, res) => {
   try {
@@ -181,6 +209,7 @@ router.get("/my-applications", verifyToken, async (req, res) => {
         path: "jobPost",
         populate: { path: "company" },
       })
+      .populate("jobPosts") // Populate the applicant field with user details
       .exec();
 
     res.status(200).json({ success: true, applications: userApplications });

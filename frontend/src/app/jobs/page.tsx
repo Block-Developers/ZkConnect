@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import MainNav from "../components/mainNav";
 import Image from "next/image";
 import filter from "../../Assets/Vector.png";
 import CustomFormComp from "../components/CustomFormComp";
