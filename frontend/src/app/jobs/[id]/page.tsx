@@ -48,14 +48,9 @@ export default function ApplicationProcess({
     );
     console.log("Response:", response.data);
     if (response.status === 200 || 201 || 202 || 203 || 204) {
-      // Successful login
-
       toast.success("Applied to the Job Successfully!", { autoClose: 4000 });
-      // Store the id value in localStorage
     } else {
-      // Error handling for unsuccessful login
       toast.error("You've applied to this job already!", { autoClose: 4000 });
-      // Handle the response as needed
       console.log("Missing Values");
     }
   };

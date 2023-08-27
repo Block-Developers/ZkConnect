@@ -54,9 +54,12 @@ router.get("/all", async (req, res) => {
 // Apply for a job
 router.post("/apply", verifyToken, async (req, res) => {
   try {
+    const jobId = req.body.jobId;
+    const userId = req.userId;
+
     // Get the job post and the logged-in user
-    const jobPost = await JobPost.findById(req.body.jobId);
-    const user = await User.findById(req.userId); // User ID from the token
+    const jobPost = await JobPost.findById(jobId);
+    const user = await User.findById(userId);
 
     if (!jobPost) {
       return res.status(404).json({
@@ -91,12 +94,12 @@ router.post("/apply", verifyToken, async (req, res) => {
       applicant: user._id,
     });
 
-    user.jobApplications.push(jobApplication._id);
+    user.jobApplications.push(jobApplication);
     await user.save();
     await jobApplication.save();
 
     // Update the job post's applicants array
-    jobPost.applicants.push(user._id);
+    jobPost.applicants.push(user);
     await jobPost.save();
 
     res.status(201).json({ success: true, message: "Applied successfully" });
