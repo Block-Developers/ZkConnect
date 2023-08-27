@@ -31,7 +31,7 @@ const page = () => {
 </h1>
 
 <h1 className='mb-[10px]'>
-    6. You'll have one attempt at this assessment, so make sure you're in a quiet, distraction-free environment before you start.
+    6. You&apos;ll have one attempt at this assessment, so make sure you&apos;re in a quiet, distraction-free environment before you start.
 </h1>
 <h1 className='mb-[10px]'>
     7. Ensure a stable internet connection throughout the assessment to prevent any interruptions.
