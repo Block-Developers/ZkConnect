@@ -38,17 +38,17 @@ export default function PastPost() {
   }, []);
   console.log(data);
   return (
-    <section className="hero2 py-2">
+    <section className="hero2 py-32">
       <div>
         <DashNav />
       </div>
-      <div className="flex justify-center items-center  bg-transparent py-9">
-        <h1 className="text-center md:text-[48px] text-[35px] font-extrabold leading-6 text-white font-agrandir bg-transparent md:mt-[180px] mt-[120px]">
+      <div className="flex justify-center items-center  bg-transparent py-9 ">
+        <h1 className="text-center md:text-[48px] text-[35px] font-extrabold leading-6 text-white font-agrandir bg-transparent  ">
           Past Post
         </h1>
       </div>
 
-      <div className="md:px-32 md:py-32 md:mx-[150px] md:my-10 border border-white rounded-[25px] bg-[#00000047] bg-opacity-25 px-6">
+      <div className="md:px-20 md:py-1 md:mx-[180px]  md:my-1 border border-white rounded-[25px] bg-[#00000047] bg-opacity-25 px-2">
         {data ? (
           <>
             {data.map((item, index) => (

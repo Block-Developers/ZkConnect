@@ -145,6 +145,7 @@ router.put(
   async (req, res) => {
     try {
       const applicationId = req.params.applicationId;
+      const { status } = req.query; // Retrieve the status from the query parameter
 
       const application = await JobApplication.findById(applicationId);
 
@@ -157,10 +158,13 @@ router.put(
 
       // Additional role-based logic here (e.g., check if the requester is a recruiter)
 
-      application.status = "selected";
-      await application.save();
+      // Update the status based on the provided status query parameter
+      application.status = status;
+      await application.save(); // This line updates the status
 
-      res.status(200).json({ success: true, message: "Candidate selected" });
+      res
+        .status(200)
+        .json({ success: true, message: "Status updated successfully" });
     } catch (error) {
       res.status(500).json({
         success: false,
@@ -204,15 +208,23 @@ router.get("/my-applications", verifyToken, async (req, res) => {
   try {
     const userId = req.userId;
 
-    const userApplications = await JobApplication.find({ applicant: userId })
+    const userApplications = await User.findById(userId)
       .populate({
-        path: "jobPost",
+        path: "jobApplications.jobPost",
         populate: { path: "company" },
       })
-      .populate("jobPosts") // Populate the applicant field with user details
       .exec();
 
-    res.status(200).json({ success: true, applications: userApplications });
+    if (!userApplications) {
+      return res.status(404).json({
+        success: false,
+        message: "User applications not found",
+      });
+    }
+
+    res
+      .status(200)
+      .json({ success: true, applications: userApplications.jobApplications });
   } catch (error) {
     res.status(500).json({
       success: false,

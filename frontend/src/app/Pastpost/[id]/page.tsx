@@ -183,7 +183,17 @@ export default function ApplicationProcess({
                                   </td>
 
                                   <td className="whitespace-nowrap flex gap-3 md:px-6 md:py-4 py-2 px-3">
-                                    {updatingStatusForAppId === data._id ? (
+                                    {updatingStatusForAppId !== data._id && (
+                                      <button
+                                        onClick={() =>
+                                          setUpdatingStatusForAppId(data._id)
+                                        }
+                                        className="bg-blue-500 text-white px-3 py-1 rounded-md"
+                                      >
+                                        Update Status
+                                      </button>
+                                    )}
+                                    {updatingStatusForAppId === data._id && (
                                       <div className="mt-2 flex gap-2">
                                         <button
                                           onClick={() =>
@@ -217,10 +227,6 @@ export default function ApplicationProcess({
                                           Cancel
                                         </button>
                                       </div>
-                                    ) : (
-                                      <p className="text-gray-500">
-                                        {data.status}
-                                      </p>
                                     )}
                                   </td>
                                 </tr>

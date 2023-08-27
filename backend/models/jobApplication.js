@@ -25,15 +25,21 @@ const jobApplicationSchema = new mongoose.Schema({
 // Mongoose pre middleware to update the numberOfApplicants field
 jobApplicationSchema.pre("save", async function (next) {
   try {
+    // Update job application details in the user document
     const User = mongoose.model("User");
     const userId = this.applicant;
-    const role = await User.findById(userId, "role").exec();
 
-    const registrationField =
-      role === "user" ? "userregister" : "companyregister";
     await User.updateOne(
       { _id: userId },
-      { $inc: { [`${registrationField}.numberOfApplicants`]: 1 } }
+      {
+        $push: {
+          jobApplications: {
+            jobPost: this.jobPost,
+            status: this.status,
+            appliedDate: this.appliedDate,
+          },
+        },
+      }
     );
 
     next();

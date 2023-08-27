@@ -59,7 +59,6 @@ function Page() {
     fetchData();
   }, []);
 
-  console.log(application);
   return (
     <>
       {loading ? (
@@ -81,7 +80,7 @@ function Page() {
                 {application ? (
                   <>
                     {application?.map((application) => (
-                      <div key={application._id}>
+                      <div key={application?._id}>
                         <div className="flex flex-col">
                           <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                             <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
@@ -138,44 +137,44 @@ function Page() {
                                           />
                                           <h1 className="pt-4">
                                             {
-                                              application.jobPost.company
-                                                .companyName
+                                              application?.jobPost?.company
+                                                ?.companyName
                                             }
                                           </h1>
                                         </div>
                                       </td>
                                       <td className="whitespace-nowrap md:px-6 md:py-4 py-2 px-3">
-                                        {application.jobPost.roleName}
+                                        {application?.jobPost?.roleName}
                                       </td>
                                       <td className="whitespace-nowrap md:px-6 md:py-4 py-2 px-3">
-                                        {application.jobPost.__v}
+                                        {application?.jobPost?.__v}
                                       </td>
                                       <td className="whitespace-nowrap md:px-6 md:py-4 py-2 px-3">
                                         {new Date(
-                                          application.appliedDate
+                                          application?.appliedDate
                                         ).toLocaleDateString()}
                                       </td>
                                       <td className="whitespace-nowrap flex gap-3  md:px-6 md:mt-6 py-2 px-3">
-                                        {application.status === "pending" && (
+                                        {application?.status === "pending" && (
                                           <MdOutlinePending
                                             size={20}
                                             color="orange"
                                           />
                                         )}
-                                        {application.status === "selected" && (
+                                        {application?.status === "selected" && (
                                           <FaCheckCircle
                                             size={20}
                                             color="green"
                                           />
                                         )}
-                                        {application.status === "rejected" && (
+                                        {application?.status === "rejected" && (
                                           <FaExclamationTriangle
                                             size={20}
                                             color="red"
                                           />
                                         )}
 
-                                        {application.status}
+                                        {application?.status}
                                       </td>
                                       <td className="whitespace-nowrap md:px-6 md:py-4 py-2 px-3">
                                         {" "}
