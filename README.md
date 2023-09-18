@@ -20,7 +20,7 @@ ZKConnect is a revolutionary hiring platform that leverages advanced technology 
 
 - **Frontend:** Next.js
 - **Backend:** Node.js (Express)
-- **Blockchain Integration:** Web3, Solidity for Neo blockchain
+- **Blockchain Integration:** Web3, Starknet blockchain
 - **Database:** MongoDB
 - **Decentralized Storage:** StackOS
 
